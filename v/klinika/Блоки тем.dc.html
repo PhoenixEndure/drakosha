@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/colors.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/typography.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/base.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
+<link rel="stylesheet" href="skin.css">
+<link rel="stylesheet" href="fixes.css">
+<script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--paper)}a{color:var(--forest-900)}a:hover{color:var(--forest-700)}</style>
+</helmet>
+<div style="min-height:100vh;background:var(--paper);color:var(--ink-700);font-family:var(--font-ui)">
+<header style="position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--border)">
+<div style="max-width:1320px;margin:0 auto;padding:12px clamp(16px,3vw,32px);display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px">
+<span class="pd-logo" style="display:contents"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="sm" hint-size="160px,40px"></x-import></span>
+<div style="flex:1"></div>
+<div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none">
+<sc-for list="{{ groups }}" as="gr" hint-placeholder-count="5"><button onClick="{{ gr.go }}" style="flex:none;height:36px;padding:0 14px;border-radius:8px;border:{{ gr.bd }};background:{{ gr.bg }};color:{{ gr.fg }};font:500 14px var(--font-ui);cursor:pointer;white-space:nowrap">{{ gr.label }}</button></sc-for>
+</div>
+</div>
+</header>
+<div style="max-width:1320px;margin:0 auto;padding:clamp(20px,3vw,36px) clamp(16px,3vw,32px) 64px">
+<div class="pd-eyebrow">Конструктор тем</div>
+<h1 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-0.01em;color:var(--ink-900);margin:10px 0 8px">Типы блоков</h1>
+<p style="margin:0 0 28px;font-size:16px;line-height:1.55;color:var(--ink-500);max-width:760px">Любой из этих блоков вставляется в текст темы одной строкой в content.js: { t: 'block', spec: … }. Под названием указан ключ готового примера из blocks-examples.js.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));gap:16px;align-items:start">
+<sc-for list="{{ list }}" as="x" hint-placeholder-count="6"><dc-import name="TopicBlock" spec="{{ x.spec }}" head="{{ x.head }}" sub="{{ x.sub }}" uid="{{ x.key }}" hint-size="100%,320px"></dc-import></sc-for>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { g: 't', all: [] };
+  componentDidMount() { import('./blocks-examples.js').then((m) => this.setState({ all: m.default })); }
+  renderVals() {
+    const G = this.state.g, cnt = { t: 0, s: 0, c: 0, i: 0 };
+    const list = this.state.all.map((x) => ({ ...x, n: ++cnt[x.g] })).filter((x) => G === 'all' || x.g === G).map((x) => ({ spec: x.spec, key: x.key, head: x.n + '. ' + x.title, sub: 'spec: EX.' + x.key }));
+    const groups = [['t', 'Таблицы'], ['s', 'Схемы'], ['c', 'Классификации'], ['i', 'Изображения']].map(([id, label]) => ({ label, bd: G === id ? '1px solid var(--forest-900)' : '1px solid var(--border)', bg: G === id ? 'var(--forest-900)' : 'var(--surface)', fg: G === id ? '#fff' : 'var(--ink-900)', go: () => this.setState({ g: id }) }));
+    return { list, groups };
+  }
+}
+</script>
+</body>
+</html>

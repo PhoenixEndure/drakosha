@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+/* «Клиника»: холодный светлый фон, один гротеск на всё, рамки вместо мягких теней, строгие углы. */
+html:root{
+  --font-sans:'IBM Plex Sans',system-ui,'Segoe UI',sans-serif;
+  --font-serif:'IBM Plex Sans',system-ui,'Segoe UI',sans-serif;
+
+  --paper:#EEF2F5; --surface:#FFFFFF; --panel:#E6ECF0; --muted:#E6ECF0; --white:#FFFFFF;
+  --border:#B9C4CD;
+  --ink-900:#0A1620; --ink-700:#27343F; --ink-500:#46535E; --ink-400:#5A6773;
+  --quote-ink:#1B2933; --subtitle-sage:#4F6358;
+
+  --forest-900:#0F3D2E; --forest-950:#082A1F; --forest-700:#17644A;
+  --sage-50:#E4EEEA; --sage-100:#D5E6DF; --sage-200:#C2D9CF; --sage-300:#8FB8A6;
+  --red-600:#C0302B; --red-800:#9A1B16;
+  --focus-ring:rgba(15,61,46,.45);
+
+  --info-bg:#E5EEF7; --info-fg:#0E3F7A; --info-border:#B5CBE0;
+  --warning-bg:#FBEAE6; --warning-fg:#8E1410; --warning-border:#E4B4AA;
+  --success-bg:#E2F0E8; --success-fg:#12452F; --success-border:#A8CDB8;
+
+  --tint-red-bg:#FBE6E2; --tint-red-fg:#A52620;
+  --tint-orange-bg:#FBE6E2; --tint-orange-fg:#A52620;
+  --tint-green-bg:#DDEEE5; --tint-green-fg:#13573D;
+  --tint-blue-bg:#DDEEE5; --tint-blue-fg:#13573D;
+  --tint-amber-bg:#FBEBC8; --tint-amber-fg:#7A4A06;
+  --tint-violet-bg:#FBEBC8; --tint-violet-fg:#7A4A06;
+  --badge-test-bg:#FBEBC8; --badge-test-fg:#7A4A06;
+  --badge-level-bg:#FBEBC8; --badge-level-fg:#7A4A06;
+  --badge-single-bg:#DDEEE5; --badge-single-fg:#13573D;
+  --badge-note-bg:#DDEEE5; --badge-note-fg:#13573D;
+  --badge-scheme-bg:#FBE6E2; --badge-scheme-fg:#A52620;
+  --badge-feature-bg:#DDEEE5; --badge-feature-fg:#13573D;
+  --badge-update-bg:#FBEBC8; --badge-update-fg:#7A4A06;
+  --badge-news-bg:#FBE6E2; --badge-news-fg:#A52620;
+  --news-green-bg:#F3F7F5; --news-orange-bg:#FBF8F0; --news-red-bg:#FBF4F2;
+
+  --radius-badge:3px; --radius-control:4px; --radius-chip:4px; --radius-icon-btn:4px;
+  --radius-tile:4px; --radius-card:4px; --radius-popover:6px;
+  --shadow-xs:none; --shadow-popover:0 6px 18px rgba(10,22,32,.14);
+  --ls-display:-0.02em; --ls-eyebrow:0.08em;
+}
+
+body{ font-family:var(--font-sans); font-feature-settings:"tnum" 1,"lnum" 1; background:var(--paper); }
+
+/* заголовки: гротеск, плотный, жирный */
+h1,h2,h3,h4{ font-family:var(--font-sans) !important; font-weight:700 !important; letter-spacing:-0.015em; color:var(--ink-900); }
+h2{ border-bottom:2px solid var(--forest-900); padding-bottom:6px; }
+
+/* строгие углы вместо мягких */
+[style*="border-radius:28px"],[style*="border-radius:16px"],[style*="border-radius:14px"],
+[style*="border-radius:12px"],[style*="border-radius:10px"]{ border-radius:4px !important; }
+[style*="border-radius:8px"],[style*="border-radius:7px"]{ border-radius:3px !important; }
+[style*="border-radius:6px"]{ border-radius:2px !important; }
+[style*="border-radius: 28px"],[style*="border-radius: 16px"],[style*="border-radius: 14px"],
+[style*="border-radius: 12px"],[style*="border-radius: 10px"]{ border-radius:4px !important; }
+[style*="border-radius: 8px"],[style*="border-radius: 7px"]{ border-radius:3px !important; }
+
+/* карточки и панели: чёткая рамка, тёмная верхняя кромка, как у прибора */
+[style*="background:var(--surface)"],[style*="background: var(--surface)"],
+[style*="background:var(--surface-card)"],[style*="background: var(--surface-card)"]{
+  border-color:var(--border) !important;
+  box-shadow:0 1px 0 rgba(10,22,32,.08) !important;
+}
+[style*="border-radius:12px"][style*="border"],[style*="border-radius: 12px"][style*="border"]{
+  border-top-color:var(--forest-900) !important;
+}
+
+/* таблицы: шапка тёмная, строки в зебру, цифры моноширинные по ширине */
+table{ border-collapse:collapse; font-variant-numeric:tabular-nums; }
+th{ background:var(--forest-900) !important; color:#fff !important; font-weight:600; text-align:left;
+    letter-spacing:.01em; border:1px solid var(--forest-900) !important; }
+td{ border:1px solid var(--border) !important; }
+tbody tr:nth-child(even) td{ background:#F3F6F8; }
+
+/* кнопки и поля: плоские, плотные, ясное состояние */
+button,[role="button"],a[class*="btn"],input,select,textarea{ font-family:var(--font-sans); border-radius:3px; }
+button,[role="button"]{ font-weight:600; letter-spacing:.01em; }
+button:hover,[role="button"]:hover,a:hover{ filter:brightness(.94); }
+button:focus-visible,[role="button"]:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid #F0A732; outline-offset:2px;
+}
+
+/* мелкие подписи-метки: капсом, как в приборах */
+[style*="letter-spacing:0.15em"],[style*="letter-spacing: 0.15em"],[style*="letter-spacing:.15em"]{
+  letter-spacing:.08em !important; font-weight:600 !important; font-family:'IBM Plex Mono',monospace !important;
+}
+
+/* золото — только как акцент-полоска у активного */
+[aria-current="page"],[aria-selected="true"]{ box-shadow:inset 0 -3px 0 #E69845; }
+
+/* полосы прогресса: квадратные */
+[style*="border-radius:999px"],[style*="border-radius: 999px"]{ border-radius:2px !important; }
