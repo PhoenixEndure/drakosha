@@ -74,10 +74,7 @@
 </div>
 </div>
 </div>
-<p style="margin: 0">port: 8317
-auth-dir: "auth"
-api-keys:
-  - "sk-moy-sekretnyy-klyuch-2026"</p></x-dc>
+</x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { w: window.innerWidth, mode: 'once', sum: 300, custom: '', done: false, run: 0, faq: {}, look: (() => { try { return JSON.parse(localStorage.getItem('drakosha.settings') || '{}').look || 'light'; } catch (e) { return 'light'; } })() };
