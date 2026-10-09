@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,700;1,7..72,400&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+/* «Старый атлас»: тёплая бумага, чернильный текст, бордовый и тёмно-зелёный как в старых изданиях */
+html:root{
+  --font-serif:'Literata','PT Serif',Georgia,serif;
+  --font-sans:'Source Sans 3','PT Sans',system-ui,sans-serif;
+  --paper:#EFE4CC;--surface:#F8F0DD;--panel:#E7DABD;--muted:#E9DDC3;--border:#B9A57F;--white:#FBF5E6;
+  --ink-900:#1E1710;--ink-700:#3B2F22;--ink-500:#5C4B38;--ink-400:#6B5942;--ink-on-dark:#EFE4CC;
+  --quote-ink:#3B2F22;--subtitle-sage:#5E5338;
+  --forest-900:#2A3A26;--forest-950:#1D2A1B;--forest-700:#3F5A36;--forest-success:#2A3A26;
+  --sage-500:#8A9370;--sage-300:#BDB78F;--sage-200:#D8CFA8;--sage-100:#E4D9B6;--sage-50:#EBE0C2;
+  --red-600:#8E2A2A;--red-800:#6E1B1B;
+  --info-bg:#E6E1CC;--info-fg:#2A3F5F;--info-border:#BDB48F;
+  --warning-bg:#EFD9C0;--warning-fg:#6E1B1B;--warning-border:#C9A57F;
+  --success-bg:#E2E0C0;--success-fg:#2A3A26;--success-border:#BDB78F;
+  --badge-note-bg:#DDDDB8;--badge-note-fg:#2A3A26;
+  --badge-scheme-bg:#EBCBB8;--badge-scheme-fg:#6E1B1B;
+  --badge-test-bg:#D9D3C0;--badge-test-fg:#3E3A5C;
+  --badge-feature-bg:#D3DBB8;--badge-feature-fg:#2A3A26;
+  --badge-update-bg:#EDD3A0;--badge-update-fg:#6B3F0E;
+  --badge-news-bg:#E8C4B4;--badge-news-fg:#6E1B1B;
+  --badge-single-bg:#D6D8CC;--badge-single-fg:#3B3A33;
+  --badge-level-bg:#DDD3C4;--badge-level-fg:#4A3A5C;
+  --tint-red-bg:#EBCFC0;--tint-red-fg:#7A1F1F;
+  --tint-green-bg:#D9DDB9;--tint-green-fg:#2F4A2A;
+  --tint-violet-bg:#DDD3C4;--tint-violet-fg:#4A3A5C;
+  --tint-blue-bg:#D3D8CC;--tint-blue-fg:#243F5F;
+  --tint-amber-bg:#EDD9A8;--tint-amber-fg:#6B3F0E;
+  --tint-orange-bg:#EBCDAF;--tint-orange-fg:#80300A;
+  --news-green-bg:#E6E2C6;--news-orange-bg:#EEDDBD;--news-red-bg:#EAD3C0;
+  --focus-ring:rgba(110,27,27,.35);
+  --text-link:#6E1B1B;
+  --shadow-sm:none;--shadow-md:none;
+}
+html,body{background:#EFE4CC !important;}
+body{background-image:radial-gradient(rgba(90,60,20,.07) 1px,transparent 1px);background-size:5px 5px;font-variant-numeric:oldstyle-nums;}
+h1,h2{font-family:'Cormorant Garamond','Literata',serif !important;font-weight:700 !important;letter-spacing:.005em;}
+h1{font-size:1.18em;}
+h2{font-size:1.15em;}
+h3{font-family:'Literata',serif;font-variant:small-caps;letter-spacing:.04em;}
+p,li,td,th{font-family:'Literata',serif;}
+/* книжные линейки и углы */
+[style*="border-radius: 12px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 20px"],[style*="border-radius: 10px"],[style*="border-radius: 8px"]{border-radius:2px !important;}
+[style*="border-radius: 999px"],[style*="border-radius: 99px"]{border-radius:3px !important;}
+button,a[href],input,select,textarea{border-radius:2px;}
+button,[role="button"]{font-family:'Source Sans 3',sans-serif;letter-spacing:.03em;}
+[style*="box-shadow"]{box-shadow:2px 2px 0 rgba(90,60,20,.22) !important;}
+[style*="border: 1px solid"],[style*="border:1px solid"]{border-color:#9C8760 !important;}
+table{border-collapse:collapse;border-top:3px double #6E1B1B;border-bottom:3px double #6E1B1B;}
+th{font-variant:small-caps;letter-spacing:.05em;border-bottom:1px solid #6E1B1B;}
+td{border-bottom:1px dotted #9C8760;}
+hr{border:0;border-top:3px double #8E2A2A;}
+img{filter:sepia(.28) saturate(.9) contrast(1.02);}
+img[alt*="огот"],img[src*="logo"]{filter:none;}
+::selection{background:#D9B98A;color:#1E1710;}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
+<link rel="stylesheet" href="skin.css">
+<link rel="stylesheet" href="fixes.css">
+<script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--paper)}a{color:var(--forest-900)}a:hover{color:var(--forest-700)}</style>
+</helmet>
+<div style="min-height:100vh;background:var(--paper);color:var(--ink-700);font-family:var(--font-ui)">
+<header style="position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;gap:24px;padding:0 clamp(16px,3vw,32px);background:var(--paper);border-bottom:1px solid var(--border)">
+<a href="Дракоша.dc.html" style="display:flex;text-decoration:none"><span class="pd-logo" style="display:contents"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="sm" theme="{{ logoTheme }}" hint-size="160px,40px"></x-import></span></a>
+<div style="flex:1"></div>
+<a href="Профиль.dc.html" style="display:flex;text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.Avatar" initials="АС" size="{{ 38 }}" hint-size="38px,38px"></x-import></a>
+</header>
+<div style="max-width:1120px;margin:0 auto;padding:clamp(16px,3vw,28px) clamp(16px,3vw,32px) 64px;display:flex;flex-direction:column;gap:20px">
+<a href="Профиль.dc.html" style="display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:500;color:var(--ink-500);text-decoration:none">← Мой профиль</a>
+<div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px">
+<div><h1 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(32px,4vw,44px);line-height:1.08;letter-spacing:-0.01em;color:var(--ink-900);margin:0">Достижения</h1><div style="font-size:15px;color:var(--ink-500);margin-top:6px">У каждого достижения пять ступеней: бронза, серебро, золото, изумруд, дракон</div></div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+<sc-for list="{{ sum }}" as="s" hint-placeholder-count="1"><div style="padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:var(--ink-500)">{{ s.l }}</span><span style="font-family:var(--font-serif);font-weight:700;font-size:28px;line-height:1.1;color:var(--ink-900)">{{ s.v }}</span></div></sc-for>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="1"><button onClick="{{ c.go }}" style="height:36px;padding:0 14px;border-radius:8px;border:{{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};font:500 14px var(--font-ui);cursor:pointer">{{ c.label }}</button></sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px">
+<sc-for list="{{ list }}" as="a" hint-placeholder-count="1">
+<div style="display:flex;flex-direction:column;gap:12px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px">
+<div style="display:flex;gap:14px;align-items:center">
+<div style="flex:none;width:58px;height:58px;border-radius:50%;padding:3px;background:{{ a.ring }}"><div style="width:100%;height:100%;border-radius:50%;background:{{ a.bg }};border:2px solid var(--surface);display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ a.icon }}" size="{{ 24 }}" color="{{ a.fg }}" hint-size="24px,24px"></x-import></div></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-family:var(--font-serif);font-weight:700;font-size:17px;color:var(--ink-900)">{{ a.t }}</span><span style="font-size:12px;font-weight:600;color:{{ a.tierFg }}">{{ a.tier }}</span></div>
+<span style="font-size:13px;line-height:1.4;color:var(--ink-500)">{{ a.desc }}</span>
+</div>
+</div>
+<div style="display:flex;gap:4px"><sc-for list="{{ a.steps }}" as="sp" hint-placeholder-count="1"><div title="{{ sp.tip }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;height:6px;border-radius:3px;background:{{ sp.bg }}"></div><span style="font-size:11px;color:{{ sp.fg }};font-variant-numeric:tabular-nums">{{ sp.n }}</span></div></sc-for></div>
+<div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-500)"><span>{{ a.now }}</span><span style="font-weight:500;color:{{ a.nextFg }}">{{ a.next }}</span></div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;border-top:1px solid var(--border)"><span style="font-size:12.5px;color:var(--ink-500)">{{ a.who }}</span></div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { liked: (() => { try { return JSON.parse(localStorage.getItem('drakosha.likes') || '{}'); } catch (e) { return {}; } })(), cat: 'all', look: (() => { try { return (JSON.parse(localStorage.getItem('drakosha.settings') || '{}').look) || 'light'; } catch (e) { return 'light'; } })() };
+  componentDidMount() {
+    if (this.state.look === 'dark') {
+      const v = { '--paper': '#131915', '--surface': '#19201B', '--panel': '#1F2722', '--border': '#2E3832', '--ink-900': '#EDF0E9', '--ink-700': '#C6CDC3', '--ink-500': '#9AA49B', '--ink-400': '#7F8A81', '--forest-900': '#4A885A', '--forest-700': '#78AE84', '--sage-100': '#25322A', '--tint-red-bg': '#33201E', '--tint-red-fg': '#F08F84', '--tint-green-bg': '#1E2E22', '--tint-green-fg': '#8CC79A', '--tint-violet-bg': '#26233A', '--tint-violet-fg': '#B4ACF2', '--tint-blue-bg': '#1A2738', '--tint-blue-fg': '#8DB8EE', '--tint-amber-bg': '#33281A', '--tint-amber-fg': '#E5B26E' };
+      Object.entries(v).forEach(([k, x]) => document.documentElement.style.setProperty(k, x));
+    }
+  }
+  renderVals() {
+    const C = this.state.cat;
+    const TIERS = [['Бронза', '#B07A4A'], ['Серебро', '#8D9193'], ['Золото', '#C9962E'], ['Изумруд', '#2E8A5C'], ['Дракон', '#AE2F20']];
+    const RING = ['conic-gradient(#D9A877,#9A6235,#D9A877)', 'conic-gradient(#E3E4E6,#9EA2A6,#E3E4E6)', 'conic-gradient(#F4D98B,#C9962E,#F4D98B)', 'conic-gradient(#7FD1A4,#1E6B45,#7FD1A4)', 'conic-gradient(#AE2F20,#4A532C,#E69845,#AE2F20)'];
+    // [category, title, verb template, icon, tint, thresholds, current]
+    const A = [
+      ['read', 'Читатель', 'Прочитать {n} тем полностью', 'book-open', 'green', [1, 5, 15, 30, 39], 9],
+      ['read', 'Краткость', 'Прочитать {n} кратких версий', 'file-text', 'blue', [1, 5, 15, 30, 39], 6],
+      ['read', 'Широкий кругозор', 'Открыть темы в {n} предметах', 'layers', 'violet', [1, 2, 3, 4, 10], 3],
+      ['read', 'Предмет целиком', 'Изучить все темы {n} предметов', 'graduation-cap', 'green', [1, 2, 3, 4, 6], 0],
+      ['read', 'Словарь', 'Открыть {n} подсказок терминов', 'scroll-text', 'amber', [10, 50, 150, 300, 600], 74],
+      ['read', 'Снимки', 'Рассмотреть {n} рисунков и снимков', 'microscope', 'red', [5, 25, 75, 150, 300], 31],
+      ['test', 'Испытуемый', 'Пройти {n} тестов', 'clipboard-list', 'violet', [1, 10, 25, 50, 100], 6],
+      ['test', 'Меткий', 'Дать {n} верных ответов', 'target', 'red', [25, 100, 300, 750, 1500], 52],
+      ['test', 'Отличник', 'Сдать {n} тестов на 90% и выше', 'star', 'amber', [1, 5, 15, 30, 60], 2],
+      ['test', 'Без единой ошибки', 'Сдать {n} тестов на 100%', 'circle-check', 'green', [1, 3, 10, 25, 50], 1],
+      ['test', 'Клиницист', 'Решить {n} клинических задач', 'stethoscope', 'blue', [1, 10, 30, 75, 150], 3],
+      ['test', 'Своими словами', 'Ответить на {n} открытых вопросов', 'notebook-pen', 'violet', [5, 25, 75, 150, 300], 11],
+      ['test', 'Работа над ошибками', 'Пересдать {n} тестов на лучший балл', 'refresh-cw', 'amber', [1, 5, 15, 30, 60], 2],
+      ['habit', 'Постоянство', 'Заниматься {n} дней подряд', 'zap', 'amber', [3, 7, 14, 30, 100], 5],
+      ['habit', 'Всего дней', 'Заниматься {n} дней в сумме', 'calendar', 'green', [7, 30, 90, 180, 365], 34],
+      ['habit', 'Часы над книгой', 'Читать {n} часов в сумме', 'clock', 'blue', [1, 10, 30, 75, 150], 12],
+      ['habit', 'Ранняя пташка', 'Заниматься до 8 утра {n} раз', 'sun', 'amber', [1, 5, 15, 30, 60], 1],
+      ['habit', 'Ночная сова', 'Заниматься после полуночи {n} раз', 'moon', 'violet', [1, 5, 15, 30, 60], 4],
+      ['habit', 'Перед экзаменом', 'Повторить краткие версии за 24 часа до теста {n} раз', 'alarm-clock', 'red', [1, 3, 10, 25, 50], 0],
+      ['social', 'Полезный комментарий', 'Получить {n} лайков на своих комментариях', 'heart', 'red', [1, 10, 50, 150, 500], 14],
+      ['social', 'Комментатор', 'Оставить {n} комментариев к темам', 'message-circle', 'blue', [1, 10, 30, 75, 150], 6],
+      ['social', 'Лучший ответ', 'Набрать {n} лайков на одном комментарии', 'thumbs-up', 'amber', [5, 15, 30, 60, 100], 7],
+      ['social', 'Коллекционер', 'Сохранить {n} тем', 'bookmark', 'green', [1, 5, 15, 30, 39], 2],
+      ['social', 'Внимательный', 'Сообщить о {n} ошибках в темах', 'flag', 'red', [1, 3, 10, 25, 50], 0],
+      ['social', 'Друг Дракоши', 'Поддерживать проект {n} месяцев', 'shield-plus', 'red', [1, 3, 6, 12, 24], 1],
+    ];
+    const LK = this.state.liked;
+    const all = A.map(([cat, t, desc, icon, tn, th, cur], ai) => {
+      let lv = 0; while (lv < 5 && cur >= th[lv]) lv++;
+      const nextN = th[lv], base = ((ai * 37) % 41) + 4, mine = !!LK[t], have = ((ai * 13) % 9) + 2;
+      return {
+        cat, t, icon, lv,
+        likes: base + (mine ? 1 : 0), heartFill: mine ? 'currentColor' : 'none', likeFg: mine ? 'var(--red-600)' : 'var(--ink-700)', likeBg: mine ? 'var(--tint-red-bg)' : 'var(--surface)', likeBd: mine ? '1px solid var(--tint-red-fg)' : '1px solid var(--border)', likeTitle: mine ? 'Убрать отметку' : 'Нравится',
+        like: () => { const nl = { ...this.state.liked, [t]: !this.state.liked[t] }; this.setState({ liked: nl }); try { localStorage.setItem('drakosha.likes', JSON.stringify(nl)); } catch (e) {} },
+        who: lv ? 'Есть у ' + have + ' однокурсников' : 'Пока ни у кого из однокурсников',
+        desc: desc.replace('{n}', lv < 5 ? String(nextN) : String(th[4])),
+        ring: lv ? RING[lv - 1] : 'var(--border)', bg: lv ? 'var(--tint-' + tn + '-bg)' : 'var(--panel)', fg: lv ? 'var(--tint-' + tn + '-fg)' : 'var(--ink-400)',
+        tier: lv ? TIERS[lv - 1][0] : 'Не открыто', tierFg: lv ? TIERS[lv - 1][1] : 'var(--ink-400)',
+        steps: th.map((n, i) => ({ n, bg: i < lv ? TIERS[i][1] : 'var(--border)', fg: i < lv ? 'var(--ink-900)' : 'var(--ink-400)', tip: TIERS[i][0] + ': ' + n })),
+        now: 'Сейчас: ' + cur, next: lv < 5 ? 'До ступени «' + TIERS[lv][0] + '»: ' + (nextN - cur) : 'Все ступени пройдены', nextFg: lv < 5 ? 'var(--ink-700)' : 'var(--forest-700)',
+      };
+    });
+    const tiers = all.reduce((a, x) => a + x.lv, 0);
+    const CATS = [['all', 'Все'], ['read', 'Чтение'], ['test', 'Тесты'], ['habit', 'Привычки'], ['social', 'Сообщество']];
+    return {
+      logoTheme: this.state.look === 'dark' ? 'dark' : 'light',
+      sum: [['Открыто достижений', all.filter((x) => x.lv > 0).length + ' из ' + all.length], ['Пройдено ступеней', tiers + ' из ' + all.length * 5], ['Золото и выше', String(all.filter((x) => x.lv >= 3).length)], ['Ближе всего', (A.map(([, t, , , , th, cur]) => { let lv = 0; while (lv < 5 && cur >= th[lv]) lv++; return lv < 5 ? { t, r: (th[lv] - cur) / th[lv] } : null; }).filter(Boolean).sort((p, q) => p.r - q.r)[0] || { t: '—' }).t]].map(([l, v]) => ({ l, v })),
+      cats: CATS.map(([id, label]) => ({ label, bd: C === id ? '1px solid var(--forest-900)' : '1px solid var(--border)', bg: C === id ? 'var(--forest-900)' : 'var(--surface)', fg: C === id ? '#fff' : 'var(--ink-900)', go: () => this.setState({ cat: id }) })),
+      list: all.filter((x) => C === 'all' || x.cat === C).sort((p, q) => q.lv - p.lv),
+    };
+  }
+}
+</script>
+</body>
+</html>
