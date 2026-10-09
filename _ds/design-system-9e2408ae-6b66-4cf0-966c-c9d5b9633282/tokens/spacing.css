@@ -1,0 +1,19 @@
+/* Spacing, radii, borders, elevation, layout */
+:root{
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;
+  --pad-card:20px;--pad-card-sm:16px;--pad-card-lg:24px;--gap-section:56px;
+
+  --radius-badge:6px;--radius-control:8px;--radius-chip:8px;--radius-icon-btn:10px;--radius-tile:12px;--radius-card:12px;--radius-popover:16px;--radius-round:999px;
+
+  --border-width:1px;--rule:1px solid var(--border);
+
+  --shadow-none:none;--shadow-xs:0 1px 2px rgba(28,52,32,.04);--shadow-popover:0 12px 32px rgba(28,52,32,.08),0 1px 2px rgba(28,52,32,.04);
+
+  --control-h-sm:36px;--control-h:44px;--control-h-lg:48px;--icon-btn-size:44px;--tabbar-h:64px;--header-h:72px;--header-h-m:64px;
+
+  --container:1200px;--col-sidebar:210px;--col-content:530px;--col-sidebar-right:210px;--reading-measure:68ch;
+
+  --icon-stroke:1.75;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px;
+
+  --ease-standard:cubic-bezier(.2,0,0,1);/* @kind other */--dur-fast:120ms;/* @kind other */--dur-base:180ms;/* @kind other */--dur-slow:260ms;/* @kind other */
+}

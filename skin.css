@@ -1,0 +1,33 @@
+/* Скин 1: «чуть иначе». Меняются только переменные оформления прототипа.
+   Разметка, блоки, кнопки, картинки и логотип остаются как есть. */
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap');
+
+:root{
+  /* шрифт интерфейса: вместо Inter. Антиква заголовков и логотип не трогаются */
+  --font-sans:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  /* бумага и карточки: карточка белая на кремовом, рамка заметнее — блоки перестают сливаться с фоном */
+  --surface:#FFFFFF;
+  --panel:#F2EFE6;
+  --muted:#F2EFE6;
+  --border:#DCD8CC;
+
+  /* текст темнее: второстепенные подписи читаются */
+  --ink-700:#33383A;
+  --ink-500:#5E6364;
+  --ink-400:#797E80;
+
+  /* подложки значков — в гамме эмблемы (красный, зелёная грива, золото) вместо шести разных пастелей */
+  --tint-red-bg:#F7E5E0;--tint-red-fg:#A8281C;
+  --tint-orange-bg:#F7E5E0;--tint-orange-fg:#A8281C;
+  --tint-green-bg:#E8EEE2;--tint-green-fg:#3B5A40;
+  --tint-blue-bg:#E8EEE2;--tint-blue-fg:#3B5A40;
+  --tint-amber-bg:#F8EBD3;--tint-amber-fg:#8A5410;
+  --tint-violet-bg:#F8EBD3;--tint-violet-fg:#8A5410;
+
+  /* плашки типов материалов и новостей — те же три семьи */
+  --badge-test-bg:#F8EBD3;--badge-test-fg:#8A5410;
+  --badge-level-bg:#F8EBD3;--badge-level-fg:#8A5410;
+  --badge-single-bg:#E8EEE2;--badge-single-fg:#3B5A40;
+  --info-bg:#EEF1E8;--info-fg:#2F4A36;--info-border:#D6DFCF;
+}

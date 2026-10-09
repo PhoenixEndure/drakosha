@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
+<link rel="stylesheet" href="skin.css">
+<script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--paper)}a{color:var(--forest-900)}a:hover{color:var(--forest-700)}</style>
+</helmet>
+<div style="min-height:100vh;background:var(--paper);color:var(--ink-700);font-family:var(--font-ui)">
+<header style="position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;gap:24px;padding:0 clamp(16px,3vw,32px);background:var(--paper);border-bottom:1px solid var(--border)">
+<a href="Дракоша.dc.html" style="display:flex;text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="sm" hint-size="160px,40px"></x-import></a>
+<div style="flex:1"></div>
+<a href="Профиль.dc.html" style="display:flex;text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.Avatar" initials="АС" size="{{ 38 }}" hint-size="38px,38px"></x-import></a>
+</header>
+<div style="max-width:980px;margin:0 auto;padding:clamp(16px,3vw,28px) clamp(16px,3vw,32px) 64px;display:flex;flex-direction:column;gap:18px">
+<a href="Профиль.dc.html" style="font-size:13.5px;font-weight:500;color:var(--ink-500);text-decoration:none">← Мой профиль</a>
+<div><h1 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(32px,4vw,44px);line-height:1.08;letter-spacing:-0.01em;color:var(--ink-900);margin:0">Уровни</h1><div style="font-size:15px;color:var(--ink-500);margin-top:6px">100 уровней: от абитуриента до Парциального Дракоши</div></div>
+
+<div style="display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding:clamp(18px,3vw,24px);background:var(--surface);border:1px solid var(--border);border-radius:12px">
+<div style="flex:none;width:72px;height:72px;border-radius:50%;background:{{ cur.bg }};color:{{ cur.fg }};display:flex;align-items:center;justify-content:center;font:700 28px var(--font-serif)">{{ cur.n }}</div>
+<div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px"><span style="font-family:var(--font-serif);font-weight:700;font-size:22px;color:var(--ink-900)">{{ cur.name }}</span><span style="font-size:13.5px;color:var(--ink-500)">{{ cur.tier }}</span></div>
+<x-import component-from-global-scope="DesignSystem_9e2408.ProgressBar" value="{{ cur.pct }}" height="{{ 8 }}" label="{{ cur.label }}" value-label="{{ cur.xp }}" hint-size="100%,30px"></x-import>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px">
+<sc-for list="{{ ways }}" as="w" hint-placeholder-count="1"><div style="display:flex;gap:10px;align-items:center;padding:12px 14px;background:var(--panel);border-radius:10px"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ w.icon }}" size="{{ 20 }}" color="var(--forest-900)" hint-size="20px,20px"></x-import><div style="display:flex;flex-direction:column"><span style="font-size:15px;font-weight:700;color:var(--ink-900)">{{ w.xp }}</span><span style="font-size:12.5px;color:var(--ink-500)">{{ w.t }}</span></div></div></sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ tiers }}" as="tr" hint-placeholder-count="1">
+<div style="background:var(--surface);border:1px solid {{ tr.bd }};border-radius:12px;overflow:hidden">
+<div onClick="{{ tr.toggle }}" style="display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer">
+<span style="flex:none;min-width:64px;height:28px;padding:0 10px;border-radius:6px;background:{{ tr.bg }};color:{{ tr.fg }};display:flex;align-items:center;justify-content:center;font:600 12.5px var(--font-ui);font-variant-numeric:tabular-nums">{{ tr.range }}</span>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-serif);font-weight:700;font-size:17px;color:var(--ink-900)">{{ tr.name }}</span><span style="font-size:12.5px;color:var(--ink-500)">{{ tr.sub }}</span></div>
+<span style="font-size:12.5px;font-weight:600;color:{{ tr.stFg }}">{{ tr.st }}</span>
+<x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ tr.chev }}" size="{{ 18 }}" color="var(--ink-500)" hint-size="18px,18px"></x-import>
+</div>
+<sc-if value="{{ tr.open }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid var(--border)">
+<sc-for list="{{ tr.levels }}" as="lv" hint-placeholder-count="1"><div style="display:grid;grid-template-columns:44px minmax(0,1fr) 92px;gap:12px;align-items:center;padding:9px 18px;border-top:1px solid var(--border);background:{{ lv.rowBg }}">
+<span style="width:32px;height:32px;border-radius:50%;background:{{ lv.cBg }};color:{{ lv.cFg }};border:{{ lv.cBd }};display:flex;align-items:center;justify-content:center;font:700 13px var(--font-ui)">{{ lv.n }}</span>
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:14.5px;font-weight:{{ lv.fw }};color:var(--ink-900)">{{ lv.name }}</span><sc-if value="{{ lv.hasR }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--red-800)"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="star" size="{{ 13 }}" hint-size="13px,13px"></x-import>{{ lv.r }}</span></sc-if></div>
+<span style="font-size:12.5px;color:var(--ink-500);text-align:right;font-variant-numeric:tabular-nums">{{ lv.xp }}</span>
+</div></sc-for>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { L: null, open: {} };
+  componentDidMount() { import('./levels.js').then((m) => this.setState({ L: m })); }
+  renderVals() {
+    const L = this.state.L, XP = 1070;
+    if (!L) return { cur: {}, ways: [], tiers: [] };
+    const lvl = L.levelOf(XP), from = L.xpFor(lvl), to = L.xpFor(lvl + 1), curT = Math.floor((lvl - 1) / 10);
+    const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u202F');
+    const tint = (t) => ({ bg: 'var(--tint-' + t + '-bg)', fg: 'var(--tint-' + t + '-fg)' });
+    return {
+      cur: { n: lvl, name: L.nameOf(lvl), tier: 'Ступень «' + L.TIERS[curT][0] + '»', pct: Math.round(((XP - from) / (to - from)) * 100), label: 'До уровня ' + (lvl + 1) + ' «' + L.nameOf(lvl + 1) + '»: ' + fmt(to - XP) + ' XP', xp: fmt(XP) + ' XP', ...tint(L.TIERS[curT][1]) },
+      ways: [['book-open', '+50', 'за прочитанную тему'], ['file-text', '+20', 'за краткую версию'], ['circle-check', '+10', 'за верный ответ'], ['star', '+30', 'за тест на 90%+'], ['zap', '+20', 'за день подряд'], ['trophy', '+100', 'за новую ступень достижения']].map(([icon, xp, t]) => ({ icon: icon === 'trophy' ? 'badge-check' : icon, xp: xp + ' XP', t })),
+      tiers: L.TIERS.map(([name, tn, names], ti) => {
+        const open = this.state.open[ti] ?? ti === curT, a = ti * 10 + 1, z = a + 9, c = tint(tn);
+        return {
+          name, range: a + '–' + z, sub: names[0] + ' → ' + names[9] + ' · ' + fmt(L.xpFor(a)) + '–' + fmt(L.xpFor(z)) + ' XP', ...c,
+          bd: ti === curT ? 'var(--forest-700)' : 'var(--border)', st: lvl > z ? 'Пройдена' : ti === curT ? 'Вы здесь' : '', stFg: lvl > z ? 'var(--forest-700)' : 'var(--red-800)',
+          open, chev: open ? 'chevron-up' : 'chevron-down', toggle: () => this.setState((s) => ({ open: { ...s.open, [ti]: !open } })),
+          levels: names.map((nm, i) => { const n = a + i, done = n < lvl, me = n === lvl; return { n, name: nm, xp: fmt(L.xpFor(n)) + ' XP', fw: me ? 700 : 500, rowBg: me ? 'var(--sage-50)' : 'transparent', cBg: done ? c.bg : me ? 'var(--forest-900)' : 'var(--surface)', cFg: done ? c.fg : me ? '#fff' : 'var(--ink-500)', cBd: done || me ? '1px solid transparent' : '1px solid var(--border)', hasR: !!L.REWARDS[n], r: L.REWARDS[n] || '' }; }),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

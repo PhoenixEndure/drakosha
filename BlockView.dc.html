@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
+<link rel="stylesheet" href="skin.css">
+<script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
+<style>html,body{margin:0;background:transparent;overflow:hidden}</style>
+</helmet>
+<div ref="{{ root }}">
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><dc-import name="TopicBlock" spec="{{ spec }}" uid="{{ ex }}" hint-size="100%,240px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { spec: null };
+  root = React.createRef();
+  componentDidMount() {
+    const ex = new URLSearchParams(location.search).get('ex');
+    this.ex = ex;
+    import('./blocks-examples.js').then((m) => this.setState({ spec: m.EX[ex] || null }));
+    const send = () => { const el = this.root.current; if (el) parent.postMessage({ drakoshaBlock: ex, h: Math.ceil(el.getBoundingClientRect().height) }, '*'); };
+    this.onMsg = (e) => {
+      const d = e.data; if (!d || !d.drakoshaTheme) return;
+      const st = document.documentElement.style;
+      (d.reset || []).forEach((k) => st.removeProperty(k));
+      Object.entries(d.drakoshaTheme).forEach(([k, v]) => st.setProperty(k, v));
+      st.colorScheme = d.scheme || 'light';
+    };
+    window.addEventListener('message', this.onMsg);
+    parent.postMessage({ drakoshaReady: ex }, '*');
+    this.ro = new ResizeObserver(send);
+    const tick = () => { if (this.root.current) this.ro.observe(this.root.current); else setTimeout(tick, 100); };
+    tick();
+  }
+  componentWillUnmount() { if (this.ro) this.ro.disconnect(); window.removeEventListener('message', this.onMsg); }
+  renderVals() { return { ready: !!this.state.spec, spec: this.state.spec, ex: this.ex || 'b', root: this.root }; }
+}
+</script>
+</body>
+</html>

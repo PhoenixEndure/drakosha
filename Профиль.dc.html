@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
+<link rel="stylesheet" href="skin.css">
+<script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--paper)}a{color:var(--forest-900)}a:hover{color:var(--forest-700)}</style>
+</helmet>
+<div style="min-height:100vh;background:var(--paper);color:var(--ink-700);font-family:var(--font-ui)">
+<header style="position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;gap:24px;padding:0 clamp(16px,3vw,32px);background:var(--paper);border-bottom:1px solid var(--border)">
+<a href="Дракоша.dc.html" style="display:flex;text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="{{ logoSize }}" theme="{{ logoTheme }}" hint-size="180px,44px"></x-import></a>
+<div style="flex:1"></div>
+<sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}"><nav style="display:flex;gap:24px"><a href="Дракоша.dc.html" style="font-size:14px;color:var(--ink-900);text-decoration:none">Главная</a><a href="Дракоша.dc.html?screen=disc&amp;nosplash=1" style="font-size:14px;color:var(--ink-900);text-decoration:none">Дисциплины</a><a href="Дракоша.dc.html?screen=search&amp;nosplash=1" style="font-size:14px;color:var(--ink-900);text-decoration:none">Поиск</a></nav></sc-if>
+<div style="position:relative;display:flex"><x-import component-from-global-scope="DesignSystem_9e2408.Avatar" initials="АС" size="{{ 38 }}" hint-size="38px,38px"></x-import></div>
+</header>
+
+<div style="max-width:1240px;margin:0 auto;padding:clamp(16px,3vw,28px) clamp(16px,3vw,32px) 64px;display:grid;grid-template-columns:{{ cols }};gap:28px;align-items:start">
+<sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}">
+<aside style="position:sticky;top:88px;display:flex;flex-direction:column;gap:2px">
+<sc-for list="{{ side }}" as="sd" hint-placeholder-count="1"><a href="{{ sd.href }}" onClick="{{ sd.go }}" style="display:flex;align-items:center;gap:12px;height:44px;padding:0 14px;border-radius:8px;background:{{ sd.bg }};box-shadow:inset 3px 0 0 {{ sd.bar }};font-size:14.5px;font-weight:{{ sd.fw }};color:var(--ink-900);text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ sd.icon }}" size="{{ 19 }}" hint-size="19px,19px"></x-import>{{ sd.label }}</a></sc-for>
+</aside>
+</sc-if>
+
+<main style="min-width:0;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px">
+<div><h1 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(32px,4vw,44px);line-height:1.08;letter-spacing:-0.01em;color:var(--ink-900);margin:0">Мой профиль</h1><div style="font-size:15px;color:var(--ink-500);margin-top:6px">Прогресс, уровень, достижения и курс</div></div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:20px 28px;align-items:center;padding:clamp(18px,3vw,26px);background:var(--surface);border:1px solid var(--border);border-radius:12px">
+<div style="position:relative;flex:none;width:150px;height:146px"><div role="img" aria-label="Аватар в рамке" style="width:100%;height:100%;background-image:{{ frameBgImg }};background-size:contain;background-repeat:no-repeat;background-position:center"></div><div style="position:absolute;right:0;bottom:6px;min-width:38px;height:28px;padding:0 8px;border-radius:14px;background:var(--red-800);color:#fff;border:2px solid var(--surface);display:flex;align-items:center;justify-content:center;font:700 13px var(--font-ui)">{{ lvl }}</div></div>
+<div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:6px">
+<div style="font-family:var(--font-serif);font-weight:700;font-size:26px;color:var(--ink-900)">{{ P.name }}</div>
+<div style="font-size:15px;color:var(--ink-500)">{{ subline }}</div><sc-if value="{{ hasAbout }}" hint-placeholder-val="{{ false }}"><div style="font-size:14.5px;line-height:1.5;color:var(--ink-700);max-width:520px;margin-top:2px">{{ P.about }}</div></sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"><sc-for list="{{ badges }}" as="bg" hint-placeholder-count="1"><span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:6px;background:{{ bg.bg }};color:{{ bg.fg }};font-size:12.5px;font-weight:600"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ bg.icon }}" size="{{ 14 }}" hint-size="14px,14px"></x-import>{{ bg.t }}</span></sc-for></div>
+</div>
+<div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:12px;background:var(--panel)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:var(--font-serif);font-weight:700;font-size:18px;color:var(--ink-900)">Уровень {{ lvl }} · {{ lvlName }}</span><span style="font-size:13px;color:var(--ink-500);font-variant-numeric:tabular-nums">{{ xpLabel }}</span></div>
+<x-import component-from-global-scope="DesignSystem_9e2408.ProgressBar" value="{{ xpPct }}" height="{{ 8 }}" label="{{ xpNext }}" hint-size="100%,30px"></x-import>
+<div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--ink-500)"><span>+50 за тему</span><span>+10 за верный ответ</span><span>+20 за день подряд</span><a href="Уровни.dc.html" style="margin-left:auto;font-weight:600;color:var(--forest-900);text-decoration:none">Все 100 уровней →</a></div>
+</div>
+</div>
+
+<section style="display:grid;grid-template-columns:{{ pair }};gap:18px;align-items:start">
+<div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font-family:var(--font-serif);font-weight:700;font-size:19px;color:var(--ink-900)">О себе</span><x-import component-from-global-scope="DesignSystem_9e2408.Button" variant="outline" size="sm" icon-left="pencil" on-click="{{ toggleEdit }}" hint-size="190px,36px">{{ editLabel }}</x-import></div>
+<sc-if value="{{ viewMode }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:15px;line-height:1.6;color:var(--ink-700)">{{ aboutText }}</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding-top:12px;border-top:1px solid var(--border)"><sc-for list="{{ info }}" as="in" hint-placeholder-count="1"><div style="display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-700)"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ in.icon }}" size="{{ 18 }}" color="var(--ink-500)" hint-size="18px,18px"></x-import><span style="min-width:110px;color:var(--ink-500)">{{ in.l }}</span><span style="color:var(--ink-900)">{{ in.v }}</span></div></sc-for></div>
+</sc-if>
+<sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+<sc-for list="{{ fields }}" as="fd" hint-placeholder-count="1"><label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500;color:var(--ink-700);grid-column:{{ fd.span }}">{{ fd.l }}<sc-if value="{{ fd.area }}" hint-placeholder-val="{{ false }}"><textarea value="{{ fd.v }}" onInput="{{ fd.on }}" rows="3" placeholder="{{ fd.ph }}" style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--white);font:14.5px/1.5 var(--font-ui);color:var(--ink-900);outline:none;resize:vertical"></textarea></sc-if><sc-if value="{{ fd.line }}" hint-placeholder-val="{{ false }}"><input value="{{ fd.v }}" onInput="{{ fd.on }}" placeholder="{{ fd.ph }}" style="height:42px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:var(--white);font:14.5px var(--font-ui);color:var(--ink-900);outline:none"></sc-if></label></sc-for>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><x-import component-from-global-scope="DesignSystem_9e2408.Button" variant="primary" on-click="{{ saveEdit }}" hint-size="120px,44px">Сохранить</x-import><x-import component-from-global-scope="DesignSystem_9e2408.Button" variant="outline" on-click="{{ toggleEdit }}" hint-size="100px,44px">Отмена</x-import></div>
+</sc-if>
+</div>
+<div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<span style="font-family:var(--font-serif);font-weight:700;font-size:19px;color:var(--ink-900)">Настройки профиля</span>
+<sc-for list="{{ privacy }}" as="pv" hint-placeholder-count="1"><div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14.5px;font-weight:500;color:var(--ink-900)">{{ pv.t }}</span><span style="font-size:12.5px;color:var(--ink-500)">{{ pv.d }}</span></div><button onClick="{{ pv.go }}" title="{{ pv.t }}" style="flex:none;width:44px;height:26px;border-radius:13px;border:none;background:{{ pv.track }};position:relative;cursor:pointer;transition:background .18s"><span style="position:absolute;top:3px;left:{{ pv.knob }};width:20px;height:20px;border-radius:50%;background:#fff;transition:left .18s"></span></button></div></sc-for>
+<a href="Дракоша.dc.html?screen=settings&amp;nosplash=1" style="font-size:13.5px;font-weight:500;color:var(--forest-900);text-decoration:none">Облик, гарнитура и колонки →</a>
+</div>
+</section>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+<sc-for list="{{ stats }}" as="s" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:10px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px"><div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-700)"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ s.icon }}" size="{{ 22 }}" color="{{ s.ic }}" hint-size="22px,22px"></x-import>{{ s.label }}</div><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--font-serif);font-weight:700;font-size:32px;line-height:1;color:var(--ink-900)">{{ s.v }}</span><span style="font-size:13px;color:var(--ink-500)">{{ s.of }}</span></div><x-import component-from-global-scope="DesignSystem_9e2408.ProgressBar" value="{{ s.pct }}" hint-size="100%,6px"></x-import></div></sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:{{ pair }};gap:18px;align-items:start">
+<section style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="1"><button onClick="{{ tb.go }}" style="height:34px;padding:0 14px;border-radius:8px;border:{{ tb.bd }};background:{{ tb.bg }};color:{{ tb.fg }};font:500 13.5px var(--font-ui);cursor:pointer">{{ tb.label }}</button></sc-for></div>
+<sc-for list="{{ feed }}" as="f" hint-placeholder-count="1"><a href="{{ f.href }}" style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.IconTile" icon="{{ f.icon }}" tint="{{ f.tint }}" size="{{ 38 }}" icon-size="{{ 18 }}" hint-size="38px,38px"></x-import><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14.5px;font-weight:600;color:var(--ink-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.title }}</span><span style="font-size:12.5px;color:var(--ink-500)">{{ f.meta }}</span></div><span style="font-size:12.5px;color:{{ f.rc }};font-weight:{{ f.rw }};white-space:nowrap">{{ f.right }}</span></a></sc-for>
+<sc-if value="{{ feedEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:24px 0;text-align:center;font-size:14px;color:var(--ink-500)">Здесь пока пусто.</div></sc-if>
+</section>
+<div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+<section style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:var(--font-serif);font-weight:700;font-size:19px;color:var(--ink-900)">Достижения</span><a href="Достижения.dc.html" style="font-size:13.5px;font-weight:500;color:var(--forest-900);text-decoration:none">Все достижения →</a></div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px"><sc-for list="{{ ach }}" as="a" hint-placeholder-count="1"><div title="{{ a.hint }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;opacity:{{ a.op }}"><div style="width:52px;height:52px;border-radius:50%;background:{{ a.bg }};border:2px solid {{ a.bd }};display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="{{ a.icon }}" size="{{ 24 }}" color="{{ a.fg }}" hint-size="24px,24px"></x-import></div><span style="font-size:12px;font-weight:600;line-height:1.25;color:var(--ink-900)">{{ a.t }}</span><span style="font-size:11px;color:var(--ink-500)">{{ a.d }}</span></div></sc-for></div>
+</section>
+<section style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:12px">
+<span style="font-family:var(--font-serif);font-weight:700;font-size:19px;color:var(--ink-900)">Мой курс</span>
+<div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px"><sc-for list="{{ courses }}" as="c" hint-placeholder-count="1"><button onClick="{{ c.go }}" style="height:40px;border-radius:8px;border:{{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};font:600 14px var(--font-ui);cursor:pointer">{{ c.n }}</button></sc-for></div>
+<div style="font-size:12.5px;color:var(--ink-500)">{{ courseNote }}</div>
+</section>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:{{ pair }};gap:18px;align-items:start">
+<section style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<span style="font-family:var(--font-serif);font-weight:700;font-size:19px;color:var(--ink-900)">Прогресс по дисциплинам</span>
+<sc-for list="{{ subj }}" as="sj" hint-placeholder-count="1"><a href="{{ sj.href }}" style="display:grid;grid-template-columns:36px minmax(0,1fr) 120px 56px;gap:12px;align-items:center;text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.IconTile" icon="{{ sj.icon }}" tint="{{ sj.tint }}" size="{{ 36 }}" icon-size="{{ 18 }}" hint-size="36px,36px"></x-import><span style="font-size:14.5px;font-weight:500;color:var(--ink-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ sj.name }}</span><x-import component-from-global-scope="DesignSystem_9e2408.ProgressBar" value="{{ sj.pct }}" hint-size="120px,6px"></x-import><span style="font-size:13px;color:var(--ink-500);text-align:right;font-variant-numeric:tabular-nums">{{ sj.lab }}</span></a></sc-for>
+</section>
+<section style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<span style="font-family:var(--font-serif);font-weight:700;font-size:19px;color:var(--ink-900)">Темы по месяцам</span>
+<div style="display:flex;align-items:flex-end;gap:12px;height:150px;padding:0 4px;border-bottom:1px solid var(--border)"><sc-for list="{{ months }}" as="m" hint-placeholder-count="1"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%"><span style="font-size:12px;color:var(--ink-500);font-variant-numeric:tabular-nums">{{ m.v }}</span><div style="width:100%;max-width:34px;height:{{ m.h }};border-radius:6px 6px 0 0;background:var(--sage-500)"></div></div></sc-for></div>
+<div style="display:flex;gap:12px;padding:0 4px"><sc-for list="{{ months }}" as="m" hint-placeholder-count="1"><span style="flex:1;text-align:center;font-size:12px;color:var(--ink-500)">{{ m.l }}</span></sc-for></div>
+</section>
+</div>
+
+<section style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px"><span style="font-family:var(--font-serif);font-weight:700;font-size:19px;color:var(--ink-900)">Рамки для аватара</span><span style="font-size:13px;color:var(--ink-500)">{{ framesOpen }}</span></div><div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:12px 14px;border-radius:12px;background:var(--panel)"><div style="flex:none;width:76px;height:74px;background-image:{{ frameBgImg }};background-size:contain;background-repeat:no-repeat;background-position:center"></div><div style="flex:1 1 220px;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-serif);font-weight:700;font-size:17px;color:var(--ink-900)">Сейчас: {{ frameName }}</span><span style="font-size:13px;color:var(--ink-500)">{{ frameHow }}</span></div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px"><sc-for list="{{ frames }}" as="fr" hint-placeholder-count="1"><button onClick="{{ fr.go }}" title="{{ fr.how }}" style="position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px 12px;border-radius:12px;border:{{ fr.bd }};background:{{ fr.cardBg }};cursor:{{ fr.cur }}"><div style="width:88px;height:86px;background-image:{{ fr.bgImg }};background-size:contain;background-repeat:no-repeat;background-position:center;opacity:{{ fr.op }};filter:{{ fr.filt }}"></div><sc-if value="{{ fr.locked }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="lock" size="{{ 13 }}" color="var(--ink-500)" hint-size="13px,13px"></x-import></span></sc-if><span style="font-family:var(--font-serif);font-size:14.5px;font-weight:700;color:var(--ink-900)">{{ fr.t }}</span><span style="font-size:12px;color:{{ fr.sc }}">{{ fr.s }}</span></button></sc-for></div>
+</section>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const ls = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+    this.state = { w: window.innerWidth, D: null, tab: 0, course: +ls('drakosha.course', 1), frame: ls('drakosha.frame', 'base'), set: ls('drakosha.settings', {}), prog: ls('drakosha.progress', { v: 'full', sec: 2, pct: 34 }), saved: ls('drakosha.saved', []), edit: false, P: Object.assign({ name: 'Алексей Сергеевич', about: 'Учусь сегодня, чтобы завтра быть полезным. Люблю физиологию за то, что в ней всё логично.', uni: 'Медицинский университет', fac: 'Лечебное дело', city: 'Москва', interests: 'Физиология, кардиология, доказательная медицина', email: 'alex@example.com', since: '12 сентября 2026' }, ls('drakosha.profile', {})), draft: null, priv: Object.assign({ pub: true, ach: true, streak: true, notify: true }, ls('drakosha.privacy', {})) };
+  }
+  componentDidMount() {
+    import('./content.js').then((m) => this.setState({ D: m.default }));
+    import('./levels.js').then((m) => this.setState({ LV: m }));
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    if (this.state.set.look === 'dark') {
+      const v = { '--paper': '#131915', '--surface': '#19201B', '--panel': '#1F2722', '--border': '#2E3832', '--ink-900': '#EDF0E9', '--ink-700': '#C6CDC3', '--ink-500': '#9AA49B', '--forest-900': '#4A885A', '--forest-700': '#78AE84', '--sage-500': '#6F8D70', '--sage-100': '#25322A', '--sage-50': '#1D2721', '--white': '#222B25', '--red-800': '#EE8D84', '--tint-red-bg': '#33201E', '--tint-red-fg': '#F08F84', '--tint-green-bg': '#1E2E22', '--tint-green-fg': '#8CC79A', '--tint-violet-bg': '#26233A', '--tint-violet-fg': '#B4ACF2', '--tint-blue-bg': '#1A2738', '--tint-blue-fg': '#8DB8EE', '--tint-amber-bg': '#33281A', '--tint-amber-fg': '#E5B26E' };
+      Object.entries(v).forEach(([k, x]) => document.documentElement.style.setProperty(k, x));
+    }
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  renderVals() {
+    const st = this.state, desk = st.w >= 1024, D = st.D;
+    const total = D ? D.SUBJECTS.reduce((a, x) => a + x.topics.length, 0) : 39;
+    const read = 9, tests = 6, correct = 52, streak = 5;
+    const xp = read * 50 + correct * 10 + streak * 20, LV = [0, 200, 450, 750, 1100, 1500, 2000, 2600, 3300];
+    let lvl = 1; while (lvl < LV.length && xp >= LV[lvl]) lvl++;
+    let from = LV[lvl - 1], to = LV[lvl] || from + 800;
+    const M = st.LV; if (M) { lvl = M.levelOf(xp); from = M.xpFor(lvl); to = M.xpFor(lvl + 1); }
+    const NAMES = ['Первокурсник', 'Слушатель', 'Конспектист', 'Ассистент', 'Староста', 'Отличник', 'Ординатор', 'Ординатор', 'Профессор'];
+    const tint = (t) => ({ bg: 'var(--tint-' + t + '-bg)', fg: 'var(--tint-' + t + '-fg)' });
+    const supporter = true, streakOk = streak >= 5, achOk = true;
+    const FR = [['base', 'Обычная', 'free'], ['laurel', 'Лавр', 'lvl', 3], ['flame', 'Пламя', 'lvl', 5], ['dragon', 'Дракон', 'support'], ['gold', 'Золото', 'lvl', 10], ['night', 'Ночь', 'lvl', 8], ['ice', 'Лёд', 'lvl', 5], ['thorns', 'Тернии', 'lvl', 7], ['storm', 'Гроза', 'lvl', 10], ['ocean', 'Океан', 'active'], ['sakura', 'Сакура', 'free'], ['runes', 'Древние руны', 'lvl', 12], ['armor', 'Латы', 'lvl', 6], ['celestial', 'Небесный', 'support'], ['emerald', 'Изумруд', 'lvl', 15], ['autumn', 'Осень', 'lvl', 9], ['healing', 'Исцеление', 'ach'], ['cosmos', 'Космос', 'lvl', 14]];
+    const frOpen = ([, , k, n]) => k === 'free' || (k === 'lvl' && lvl >= n) || (k === 'support' && supporter) || (k === 'active' && streakOk) || (k === 'ach' && achOk);
+    const frHow = ([, , k, n]) => ({ free: 'Доступна всем', lvl: 'Открывается на уровне ' + n, support: 'За поддержку проекта', active: 'За 5 дней занятий подряд', ach: 'За золото в любом достижении' }[k]);
+    const frShort = ([, , k, n]) => ({ free: 'Доступна', lvl: 'С уровня ' + n, support: 'За поддержку', active: 'За активность', ach: 'За достижения' }[k]);
+    const fr = FR.find((x) => x[0] === st.frame && frOpen(x)) || FR[0];
+    const P = st.P, D2 = st.draft || P, pv = st.priv;
+    const setD = (k) => (e) => { const v = e.target.value; this.setState((s) => ({ draft: { ...(s.draft || s.P), [k]: v } })); };
+    const ACH = [['Первые шаги', 'leaf', 'green', '12 сен', true, 'Прочитать первую тему'], ['10 тестов', 'target', 'red', '', false, 'Пройти 10 тестов'], ['Любознательный', 'book-open', 'violet', '28 сен', true, 'Открыть темы в трёх предметах'], ['Неделя подряд', 'zap', 'amber', '', false, 'Заниматься 7 дней подряд'], ['Отличник', 'star', 'amber', '30 сен', true, 'Тест на 90% и выше'], ['Полная тема', 'circle-check', 'green', '2 окт', true, 'Дочитать полную версию до конца'], ['Ночная сова', 'moon', 'blue', '', false, 'Читать после полуночи'], ['Весь предмет', 'graduation-cap', 'forest', '', false, 'Изучить все темы предмета']];
+    const prog = st.prog || { pct: 0, sec: 0 };
+    const feedAll = [
+      [{ title: 'Гемостаз', meta: 'Нормальная физиология · раздел ' + (prog.sec + 1), icon: 'book-open', tint: 'green', right: prog.pct + '%', rc: 'var(--ink-500)', rw: 400, href: 'Дракоша.dc.html?screen=topic&nosplash=1&sec=' + prog.sec }, { title: 'Тест: Гемостаз', meta: 'Нормальная физиология', icon: 'circle-check', tint: 'green', right: '9 из 10', rc: 'var(--forest-700)', rw: 600, href: 'Дракоша.dc.html?screen=test&nosplash=1' }, { title: 'Эритроциты и группы крови', meta: 'Нормальная физиология', icon: 'book-open', tint: 'blue', right: 'вчера', rc: 'var(--ink-500)', rw: 400, href: 'Дракоша.dc.html?screen=topic&nosplash=1' }, { title: 'Желудочно-кишечные кровотечения', meta: 'Госпитальная хирургия', icon: 'book-open', tint: 'blue', right: '3 дня назад', rc: 'var(--ink-500)', rw: 400, href: 'Дракоша.dc.html?screen=topic&nosplash=1' }],
+      [{ title: 'Гемостаз', meta: 'Полная версия · ' + prog.pct + '% прочитано', icon: 'book-open', tint: 'green', right: 'Продолжить →', rc: 'var(--forest-900)', rw: 600, href: 'Дракоша.dc.html?screen=topic&nosplash=1&sec=' + prog.sec }],
+      (st.saved || []).map(() => ({ title: 'Тема 14. Гемостаз', meta: 'Нормальная физиология', icon: 'bookmark', tint: 'green', right: '', rc: '', rw: 400, href: 'Дракоша.dc.html?screen=topic&nosplash=1' })),
+    ];
+    const feed = feedAll[st.tab];
+    const DONE = { phys: 9, derm: 1, gyn: 0, surg: 1 };
+    return {
+      desk, cols: desk ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', pair: desk ? 'minmax(0,1.3fr) minmax(0,1fr)' : 'minmax(0,1fr)', logoSize: desk ? 'md' : 'sm', logoTheme: st.set.look === 'dark' ? 'dark' : 'light',
+      side: [['user', 'Мой профиль', '#', true], ['book-open', 'Мои курсы', 'Дракоша.dc.html?screen=disc&nosplash=1'], ['bookmark', 'Сохранённое', 'Дракоша.dc.html?screen=saved&nosplash=1'], ['clipboard-list', 'Мои тесты', 'Дракоша.dc.html?screen=test&nosplash=1'], ['star', 'Достижения', 'Достижения.dc.html'], ['chart-column', 'Статистика', '#'], ['settings', 'Настройки', 'Дракоша.dc.html?screen=settings&nosplash=1'], ['heart', 'Поддержать проект', 'Поддержать.dc.html']].map(([icon, label, href, act]) => ({ icon, label, href, bg: act ? 'var(--sage-100)' : 'transparent', bar: act ? 'var(--forest-900)' : 'transparent', fw: act ? 600 : 400, go: href === '#' ? (e) => e.preventDefault() : undefined })),
+      lvl, lvlName: M ? M.nameOf(lvl) : NAMES[Math.min(lvl, NAMES.length) - 1], xpPct: Math.round(((xp - from) / (to - from)) * 100), xpLabel: xp + ' XP', xpNext: 'До уровня ' + (lvl + 1) + ': ' + (to - xp) + ' XP',
+      subline: 'Студент · ' + (st.course + 1) + ' курс · ' + (st.P.fac || 'Лечебное дело'),
+      badges: [{ t: streak + ' дней подряд', icon: 'zap', ...tint('amber') }, { t: 'Поддерживает проект', icon: 'heart', ...tint('red') }].map((b) => ({ ...b })),
+      frameSrc: 'frames/' + fr[0] + '.png', frameBgImg: 'url(frames/' + fr[0] + '.png)', frameName: fr[1], frameHow: frHow(fr) + '. Нажмите на другую рамку, чтобы сменить.', framesOpen: 'Открыто ' + FR.filter(frOpen).length + ' из ' + FR.length,
+      P, hasAbout: !!P.about, aboutText: P.about || 'Расскажите о себе: что изучаете, чем интересуетесь.',
+      viewMode: !st.edit, editMode: st.edit, editLabel: st.edit ? 'Свернуть' : 'Редактировать профиль',
+      toggleEdit: () => this.setState((s) => ({ edit: !s.edit, draft: null })),
+      saveEdit: () => { const np = { ...(this.state.draft || this.state.P) }; this.setState({ P: np, edit: false, draft: null }); this.save('drakosha.profile', np); },
+      info: [['mail', 'Почта', P.email], ['graduation-cap', 'Учёба', P.uni + ', ' + P.fac + ', ' + (st.course + 1) + ' курс'], ['house', 'Город', P.city], ['star', 'Интересы', P.interests], ['calendar', 'На сайте с', P.since]].filter((x) => x[2]).map(([icon, l, v]) => ({ icon, l, v })),
+      fields: [['name', 'Имя', 'Как вас зовут', false, '1 / -1'], ['about', 'О себе', 'Пара предложений о себе', true, '1 / -1'], ['uni', 'Университет', 'Название вуза', false, 'auto'], ['fac', 'Факультет', 'Лечебное дело', false, 'auto'], ['city', 'Город', 'Город', false, 'auto'], ['email', 'Почта', 'name@example.com', false, 'auto'], ['interests', 'Интересы', 'Через запятую', false, '1 / -1']].map(([k, l, ph, area, span]) => ({ l, ph, v: D2[k] || '', on: setD(k), area, line: !area, span })),
+      privacy: [['pub', 'Открытый профиль', 'Однокурсники видят ваш уровень и рамку'], ['ach', 'Показывать достижения', 'Достижения видны в открытом профиле'], ['streak', 'Показывать дни подряд', 'Метка с серией занятий у имени'], ['notify', 'Напоминания о занятиях', 'Дракончик напомнит, если серия может прерваться']].map(([k, t, d]) => ({ t, d, track: pv[k] ? 'var(--forest-700)' : 'var(--border)', knob: pv[k] ? '21px' : '3px', go: () => { const np = { ...this.state.priv, [k]: !this.state.priv[k] }; this.setState({ priv: np }); this.save('drakosha.privacy', np); } })),
+      stats: [['book-open', 'Изучено тем', String(read), 'из ' + total, Math.round((read / total) * 100), 'var(--forest-900)'], ['circle-check', 'Пройдено тестов', String(tests), 'из 29', Math.round((tests / 29) * 100), 'var(--forest-900)'], ['chart-column', 'Средний результат', '84%', '', 84, 'var(--forest-900)'], ['zap', 'Дней подряд', String(streak), 'рекорд 12', Math.round((streak / 12) * 100), 'var(--tint-amber-fg)']].map(([icon, label, v, of, pct, ic]) => ({ icon, label, v, of, pct, ic })),
+      tabs: ['Недавняя активность', 'Продолжить', 'Сохранённое'].map((label, i) => ({ label, bd: i === st.tab ? '1px solid var(--forest-900)' : '1px solid var(--border)', bg: i === st.tab ? 'var(--forest-900)' : 'var(--surface)', fg: i === st.tab ? '#fff' : 'var(--ink-900)', go: () => this.setState({ tab: i }) })),
+      feed, feedEmpty: feed.length === 0,
+      ach: ACH.map(([t, icon, tn, d, got, hint]) => { const c = tn === 'forest' ? { bg: 'var(--sage-100)', fg: 'var(--forest-900)' } : tint(tn); return { t, icon, d: got ? d : 'закрыто', hint, op: got ? 1 : 0.45, bg: got ? c.bg : 'var(--panel)', fg: got ? c.fg : 'var(--ink-400)', bd: got ? c.fg : 'var(--border)' }; }), achCount: ACH.filter((a) => a[4]).length + ' из ' + ACH.length,
+      courses: [1, 2, 3, 4, 5, 6].map((n, i) => ({ n, bd: i === st.course ? '1px solid var(--forest-900)' : '1px solid var(--border)', bg: i === st.course ? 'var(--forest-900)' : 'var(--surface)', fg: i === st.course ? '#fff' : 'var(--ink-900)', go: () => { this.setState({ course: i }); this.save('drakosha.course', String(i)); } })),
+      courseNote: 'Главная будет сразу открывать дисциплины ' + (st.course + 1) + ' курса.',
+      subj: (D ? D.SUBJECTS : []).map((S) => ({ name: S.name, icon: S.icon, tint: S.tint, pct: Math.round(((DONE[S.id] || 0) / S.topics.length) * 100), lab: (DONE[S.id] || 0) + ' / ' + S.topics.length, href: 'Дракоша.dc.html?screen=subject&nosplash=1&sub=' + S.id })),
+      months: [['Май', 1], ['Июн', 0], ['Июл', 2], ['Авг', 3], ['Сен', 6], ['Окт', 2]].map(([l, v]) => ({ l, v, h: Math.max(4, (v / 6) * 110) + 'px' })),
+      frames: FR.map((f) => { const open = frOpen(f), act = fr[0] === f[0]; return { t: f[1], src: 'frames/' + f[0] + '.png', bgImg: 'url(frames/' + f[0] + '.png)', how: frHow(f), s: frShort(f), sc: f[2] === 'support' || f[2] === 'ach' || f[2] === 'active' ? 'var(--red-800)' : open ? 'var(--forest-700)' : 'var(--ink-500)', op: open ? 1 : 0.45, filt: open ? 'none' : 'grayscale(.7)', locked: !open, bd: act ? '2px solid var(--forest-700)' : '1px solid var(--border)', cardBg: act ? 'var(--sage-50)' : 'var(--surface)', cur: open ? 'pointer' : 'not-allowed', go: () => { if (!open) return; this.setState({ frame: f[0] }); this.save('drakosha.frame', f[0]); } }; }),
+    };
+  }
+}
+</script>
+</body>
+</html>
