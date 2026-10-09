@@ -31,9 +31,3 @@
   --badge-single-bg:#E8EEE2;--badge-single-fg:#3B5A40;
   --info-bg:#EEF1E8;--info-fg:#2F4A36;--info-border:#D6DFCF;
 }
-
-/* Телефон: блок «этапы» (три карточки со стрелками) встаёт столбиком — в ряд текст не помещался */
-@media (max-width: 640px){
-  .pd-stages > div > div{flex-direction:column !important}
-  .pd-stages > div > div > span{justify-content:center;transform:rotate(90deg);padding:2px 0}
-}

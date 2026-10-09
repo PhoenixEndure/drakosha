@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/base.css">
 <link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
 <link rel="stylesheet" href="skin.css">
+<link rel="stylesheet" href="fixes.css">
 <script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
 <style>
 body{margin:0;background:var(--paper);transition:background-color .2s;overflow-anchor:none}
@@ -28,14 +29,14 @@ a:hover{color:var(--forest-700)}
 <sc-if value="{{ splash }}" hint-placeholder-val="{{ false }}">
 <div style="position:fixed;inset:0;z-index:100;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:{{ splashOpacity }};transition:opacity .45s cubic-bezier(.2,0,0,1)">
 <x-import component-from-global-scope="dragon-sprite" from="./dragon-sprite.js" name="{{ splashName }}" size="{{ 168 }}" fps="{{ 9 }}" hint-size="166px,168px"></x-import>
-<x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="lg" theme="{{ logoTheme }}" hint-size="260px,64px"></x-import>
+<span class="pd-logo" style="display:contents"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="lg" theme="{{ logoTheme }}" hint-size="260px,64px"></x-import></span>
 <div style="width:180px;height:3px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:{{ splashBar }};height:100%;background:var(--forest-700);transition:width 2.4s linear"></div></div>
 </div>
 </sc-if>
 
 <sc-if value="{{ desk }}" hint-placeholder-val="{{ true }}">
 <header style="position:sticky;top:0;z-index:40;height:72px;display:flex;align-items:center;gap:32px;padding:0 32px;background:var(--paper);border-bottom:1px solid var(--border)">
-<div onClick="{{ goHome }}" style="cursor:pointer;display:flex;flex:none"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="md" theme="{{ logoTheme }}" hint-size="200px,48px"></x-import></div>
+<div onClick="{{ goHome }}" style="cursor:pointer;display:flex;flex:none"><span class="pd-logo" style="display:contents"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="md" theme="{{ logoTheme }}" hint-size="200px,48px"></x-import></span></div>
 <nav style="display:flex;align-items:center;gap:28px">
 <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4"><a href="#" onClick="{{ n.go }}" style="font-family:var(--font-ui);font-size:14px;font-weight:{{ n.fw }};color:{{ n.color }};text-decoration:none;white-space:nowrap">{{ n.label }}</a></sc-for>
 </nav>
@@ -58,7 +59,7 @@ a:hover{color:var(--forest-700)}
 <x-import component-from-global-scope="DesignSystem_9e2408.IconButton" icon="settings" label="Настройки" variant="ghost" size="{{ 40 }}" on-click="{{ goSettings }}" hint-size="40px,40px"></x-import>
 </sc-if>
 <sc-if value="{{ mLogo }}" hint-placeholder-val="{{ false }}">
-<div onClick="{{ goHome }}" style="display:flex;padding-left:4px;cursor:pointer"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="sm" theme="{{ logoTheme }}" hint-size="160px,40px"></x-import></div>
+<div onClick="{{ goHome }}" style="display:flex;padding-left:4px;cursor:pointer"><span class="pd-logo" style="display:contents"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="sm" theme="{{ logoTheme }}" hint-size="160px,40px"></x-import></span></div>
 <div style="flex:1"></div>
 <x-import component-from-global-scope="DesignSystem_9e2408.IconButton" icon="search" label="Поиск" variant="ghost" size="{{ 40 }}" icon-size="{{ 22 }}" on-click="{{ goSearchNav }}" hint-size="40px,40px"></x-import>
 </sc-if>

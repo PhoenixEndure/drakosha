@@ -11,12 +11,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
 <link rel="stylesheet" href="skin.css">
+<link rel="stylesheet" href="fixes.css">
 <script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
 <style>body{margin:0;background:var(--paper)}a{color:var(--forest-900)}a:hover{color:var(--forest-700)}</style>
 </helmet>
 <div style="min-height:100vh;background:var(--paper);color:var(--ink-700);font-family:var(--font-ui)">
 <header style="position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;gap:24px;padding:0 clamp(16px,3vw,32px);background:var(--paper);border-bottom:1px solid var(--border)">
-<a href="Дракоша.dc.html" style="display:flex;text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="{{ logoSize }}" theme="{{ logoTheme }}" hint-size="180px,44px"></x-import></a>
+<a href="Дракоша.dc.html" style="display:flex;text-decoration:none"><span class="pd-logo" style="display:contents"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="{{ logoSize }}" theme="{{ logoTheme }}" hint-size="180px,44px"></x-import></span></a>
 <div style="flex:1"></div>
 <sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}"><nav style="display:flex;gap:24px"><a href="Дракоша.dc.html" style="font-size:14px;color:var(--ink-900);text-decoration:none">Главная</a><a href="Дракоша.dc.html?screen=disc&amp;nosplash=1" style="font-size:14px;color:var(--ink-900);text-decoration:none">Дисциплины</a><a href="Дракоша.dc.html?screen=search&amp;nosplash=1" style="font-size:14px;color:var(--ink-900);text-decoration:none">Поиск</a></nav></sc-if>
 <div style="position:relative;display:flex"><x-import component-from-global-scope="DesignSystem_9e2408.Avatar" initials="АС" size="{{ 38 }}" hint-size="38px,38px"></x-import></div>
