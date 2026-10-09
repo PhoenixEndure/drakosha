@@ -1,0 +1,1 @@
+import{t as e}from"./scrollbus.C37DraWk.js";var t=[...document.querySelectorAll(`[data-sec-terms]`)],n=-1;e(e=>{e.cur!==n&&(n=e.cur,t.forEach(t=>{t.hidden=Number(t.dataset.secTerms)!==e.cur}))});

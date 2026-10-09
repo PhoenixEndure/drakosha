@@ -1,0 +1,1 @@
+import{t as e}from"./scrollbus.C37DraWk.js";var t=[`.navcard__subs > li`,`.toc__list > li`].map(e=>[...document.querySelectorAll(e)]),n=-1;e(e=>{e.cur!==n&&(n=e.cur,t.forEach(t=>t.forEach((t,n)=>{let r=t.querySelector(`a`);r&&(r.classList.toggle(`is-cur`,n===e.cur),n===e.cur?r.setAttribute(`aria-current`,`location`):r.removeAttribute(`aria-current`))})))});
