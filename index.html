@@ -171,13 +171,13 @@ a:hover{color:var(--forest-700)}
 </sc-if>
 </section>
 <section style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:{{ H.cardPad }};display:{{ H.newsDeskDisp }};flex-direction:column;gap:10px;min-width:0">
-<x-import component-from-global-scope="DesignSystem_9e2408.SectionHeader" size="{{ H.subSize }}" icon="megaphone" title="Новости и обновления" hint-size="100%,28px"></x-import>
+<x-import component-from-global-scope="DesignSystem_9e2408.SectionHeader" size="{{ H.subSize }}" icon="megaphone" title="Новости и обновления" action-label="Все новости" on-action="{{ H.toNews }}" hint-size="100%,28px"></x-import>
 <sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;flex-direction:column">
 <sc-for list="{{ H.news }}" as="nw" hint-placeholder-count="1"><div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)">
 <x-import component-from-global-scope="DesignSystem_9e2408.IconTile" icon="{{ nw.icon }}" tint="{{ nw.tint }}" size="{{ 40 }}" icon-size="{{ 20 }}" hint-size="40px,40px"></x-import>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
-<div style="display:flex;align-items:center;gap:8px"><x-import component-from-global-scope="DesignSystem_9e2408.Badge" kind="{{ nw.kind }}" size="sm" hint-size="100px,22px">{{ nw.badge }}</x-import><span style="font-size:12.5px;color:var(--ink-500);white-space:nowrap">{{ nw.date }}</span></div>
+<div style="display:flex;align-items:center;gap:8px"><x-import component-from-global-scope="DesignSystem_9e2408.Badge" kind="{{ nw.kind }}" size="sm" hint-size="100px,22px">{{ nw.badge }}</x-import><span style="font-size:12.5px;color:var(--ink-500);white-space:nowrap">{{ nw.date }}</span><sc-if value="{{ nw.isNew }}" hint-placeholder-val="{{ false }}"><span style="padding:1px 7px;border-radius:6px;background:var(--forest-900);color:var(--ink-on-dark);font-size:12.5px;font-weight:600;line-height:1.4">Новое</span></sc-if></div>
 <div style="font-family:var(--font-serif);font-weight:700;font-size:16px;line-height:1.3;color:var(--ink-900)">{{ nw.title }}</div>
 <div style="font-size:13.5px;line-height:1.45;color:var(--ink-500);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ nw.text }}</div>
 </div>
@@ -187,9 +187,9 @@ a:hover{color:var(--forest-700)}
 </section>
 </div>
 <section style="display:{{ H.newsMobDisp }};flex-direction:column;gap:16px">
-<x-import component-from-global-scope="DesignSystem_9e2408.SectionHeader" size="{{ H.newsSize }}" icon="megaphone" title="Новости и обновления" subtitle="{{ H.newsSub }}" hint-size="100%,56px"></x-import>
+<x-import component-from-global-scope="DesignSystem_9e2408.SectionHeader" size="{{ H.newsSize }}" icon="megaphone" title="Новости и обновления" subtitle="{{ H.newsSub }}" action-label="Все новости" on-action="{{ H.toNews }}" hint-size="100%,56px"></x-import>
 <div style="display:{{ H.newsDisp }};grid-template-columns:repeat(3,minmax(0,1fr));gap:{{ H.newsGap }};overflow-x:auto;margin:{{ H.newsBleed }};padding:{{ H.newsBleedPad }};scrollbar-width:none">
-<sc-for list="{{ H.news }}" as="nw" hint-placeholder-count="3"><div style="flex:none;width:{{ H.newsW }};display:flex"><x-import component-from-global-scope="DesignSystem_9e2408.NewsCard" kind="{{ nw.kind }}" icon="{{ nw.icon }}" badge="{{ nw.badge }}" date="{{ nw.date }}" title="{{ nw.title }}" text="{{ nw.text }}" link-label="{{ nw.link }}" style="width:100%" hint-size="100%,200px"></x-import></div></sc-for>
+<sc-for list="{{ H.news }}" as="nw" hint-placeholder-count="3"><div style="flex:none;width:{{ H.newsW }};display:flex;position:relative"><sc-if value="{{ nw.isNew }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;bottom:16px;right:16px;z-index:1;padding:1px 7px;border-radius:6px;background:var(--forest-900);color:var(--ink-on-dark);font-size:12.5px;font-weight:600;line-height:1.4">Новое</span></sc-if><x-import component-from-global-scope="DesignSystem_9e2408.NewsCard" kind="{{ nw.kind }}" icon="{{ nw.icon }}" badge="{{ nw.badge }}" date="{{ nw.date }}" title="{{ nw.title }}" text="{{ nw.text }}" link-label="{{ nw.link }}" style="width:100%" hint-size="100%,200px"></x-import></div></sc-for>
 </div>
 </section>
 </div>
@@ -1014,6 +1014,8 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    this.onFootNews = (e) => { const a = e.target && e.target.closest ? e.target.closest('footer a') : null; if (a && a.textContent.trim() === 'Новости') { e.preventDefault(); location.href = 'Новости.dc.html'; } };
+    document.addEventListener('click', this.onFootNews);
     import('./content.js').then((m) => this.setState({ D: m.default }));
     this.onResize = () => this.setState({ w: window.innerWidth });
     window.addEventListener('resize', this.onResize);
@@ -1480,7 +1482,7 @@ class Component extends DCLogic {
       footer: !scr.test && !(mob && scr.topic), stickyTop: desk ? '72px' : '56px',
       cv1: CV === 1, cv2: CV === 2, cv3: CV === 3, cv4: CV === 4,
       homeNew: scr.home, goSearchNav: go('search'),
-      footLinks: ['Главная', 'Дисциплины', 'Поддержать проект', 'Поиск', 'Настройки', 'О проекте'], footLegal: [],
+      footLinks: ['Главная', 'Дисциплины', 'Новости', 'Поддержать проект', 'Поиск', 'Настройки', 'О проекте'], footLegal: [],
     };
     if (!D) return V;
 
@@ -1528,6 +1530,7 @@ class Component extends DCLogic {
       wideTbl: w >= 1180, tblCols: w >= 1180 ? '28px minmax(0,2.4fr) minmax(0,1.2fr) minmax(0,1fr) 96px 92px' : '28px minmax(0,2.4fr) minmax(0,1.2fr) 96px 92px',
       toCourses: () => { const el = document.querySelector('[data-courses]'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (desk ? 88 : 68), behavior: 'smooth' }); },
       toDisc: () => this.go('disc'),
+      toNews: () => { location.href = 'Новости.dc.html'; },
       courses: COURSES.map(([icon, subtitle], i) => ({ icon, subtitle, title: i + 1 + ' курс', active: i === ci, onClick: () => { this.setState({ course: i, sem: 0 }); try { localStorage.setItem('drakosha.course', String(i)); } catch (e) {} } })),
       courseTitle: 'Дисциплины ' + (ci + 1) + ' курса',
       semItems: sems.map((s, i) => ({ id: String(i), label: ROM[s - 1] + ' семестр' })), semVal: String(st.sem), onSem: (id) => this.setState({ sem: +id }),
@@ -1539,6 +1542,8 @@ class Component extends DCLogic {
       ],
     };
     V.H.news.forEach((nw) => { nw.tint = { feature: 'green', update: 'amber', news: 'red' }[nw.kind]; });
+    let newsSeen = []; try { newsSeen = JSON.parse(localStorage.getItem('drakosha.newsSeen') || '[]'); } catch (e) { newsSeen = []; }
+    V.H.news.forEach((nw) => { nw.isNew = newsSeen.indexOf(nw.kind + '|' + nw.title) < 0; });
     const days = [];
     feed.forEach((f) => { const last = days[days.length - 1]; if (last && last.label === f.day) last.items.push(f); else days.push({ label: f.day, weekday: f.weekday, items: [f] }); });
     Object.assign(V, { feed, feedDays: days, feedCount: topicsWord(D.SUBJECTS.reduce((a, x) => a + x.topics.length, 0)) + ' в четырёх предметах' });
@@ -1731,7 +1736,7 @@ class Component extends DCLogic {
     const testsN = D.SUBJECTS.reduce((a, S) => a + S.topics.filter((x) => x[4]).length, 0);
     V.AB = { stats: [[String(V.about.topics), 'тем'], [String(V.about.subjects), 'предмета'], ['2', 'версии каждой темы'], [String(testsN), this.plural(testsN, ['тест', 'теста', 'тестов'])]].map(([value, label]) => ({ value, label })), crumbs: [{ label: 'Главная' }, { label: 'О проекте' }] };
     V.crumbHome = (item, i) => { if (i === 0) this.go('home'); };
-    V.MN = { show: st.sheet === 'menu', items: [['home', 'Главная', 'house'], ['disc', 'Все дисциплины', 'layout-grid'], ['support', 'Поддержать проект', 'heart'], ['saved', 'Сохранённое', 'bookmark'], ['settings', 'Настройки', 'settings'], ['about', 'О проекте', 'info'], ['profile', 'Мой профиль', 'user'], ['ach', 'Достижения', 'star']].map(([id, label, icon]) => ({ label, icon, go: () => (id === 'profile' ? (location.href = 'Профиль.dc.html') : id === 'ach' ? (location.href = 'Достижения.dc.html') : id === 'support' ? (location.href = 'Поддержать.dc.html') : this.go(id)) })) };
+    V.MN = { show: st.sheet === 'menu', items: [['home', 'Главная', 'house'], ['disc', 'Все дисциплины', 'layout-grid'], ['news', 'Новости', 'megaphone'], ['support', 'Поддержать проект', 'heart'], ['saved', 'Сохранённое', 'bookmark'], ['settings', 'Настройки', 'settings'], ['about', 'О проекте', 'info'], ['profile', 'Мой профиль', 'user'], ['ach', 'Достижения', 'star']].map(([id, label, icon]) => ({ label, icon, go: () => (id === 'profile' ? (location.href = 'Профиль.dc.html') : id === 'ach' ? (location.href = 'Достижения.dc.html') : id === 'support' ? (location.href = 'Поддержать.dc.html') : id === 'news' ? (location.href = 'Новости.dc.html') : this.go(id)) })) };
     V.openMenu = () => this.setState({ sheet: 'menu' });
     V.never = false;
     V.H.crumbSize = desk ? 'sm' : 'md';

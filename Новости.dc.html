@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
+<link rel="stylesheet" href="skin.css">
+<link rel="stylesheet" href="fixes.css">
+<script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--paper)}a{color:var(--forest-900)}a:hover{color:var(--forest-700)}</style>
+</helmet>
+<div style="min-height:100vh;background:var(--paper);color:var(--ink-700);font-family:var(--font-ui)">
+<header style="position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;gap:24px;padding:0 clamp(16px,3vw,32px);background:var(--paper);border-bottom:1px solid var(--border)">
+<a href="Дракоша.dc.html" style="display:flex;text-decoration:none"><span class="pd-logo" style="display:contents"><x-import component-from-global-scope="DesignSystem_9e2408.Logo" size="sm" theme="{{ logoTheme }}" hint-size="160px,40px"></x-import></span></a>
+<div style="flex:1"></div>
+<a href="Профиль.dc.html" style="display:flex;text-decoration:none"><x-import component-from-global-scope="DesignSystem_9e2408.Avatar" initials="АС" size="{{ 38 }}" hint-size="38px,38px"></x-import></a>
+</header>
+<div style="max-width:1200px;margin:0 auto;padding:clamp(16px,3vw,28px) clamp(16px,3vw,32px) 64px;display:flex;flex-direction:column;gap:20px">
+<x-import component-from-global-scope="DesignSystem_9e2408.Breadcrumbs" items="{{ crumbs }}" on-navigate="{{ crumbGo }}" size="sm" hint-size="100%,20px"></x-import>
+<div><h1 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(34px,5vw,52px);line-height:1.06;letter-spacing:-0.01em;color:var(--ink-900);margin:0">Новости и обновления</h1>
+<p style="margin:10px 0 0;font-size:clamp(16px,1.8vw,18px);line-height:1.55;color:var(--ink-500);max-width:820px">Новые темы, функции и изменения на сайте.</p></div>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ filters }}" as="f" hint-placeholder-count="4"><x-import component-from-global-scope="DesignSystem_9e2408.Chip" active="{{ f.active }}" size="md" on-click="{{ f.go }}" hint-size="140px,40px">{{ f.label }}</x-import></sc-for></div>
+
+<div style="display:grid;grid-template-columns:{{ cols }};gap:18px;align-items:start">
+<section style="padding:clamp(6px,2vw,12px) clamp(16px,3vw,26px);background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;min-width:0">
+<sc-for list="{{ items }}" as="nw" hint-placeholder-count="3"><div style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--border)">
+<x-import component-from-global-scope="DesignSystem_9e2408.IconTile" icon="{{ nw.icon }}" tint="{{ nw.tint }}" size="{{ 44 }}" icon-size="{{ 22 }}" hint-size="44px,44px"></x-import>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px"><x-import component-from-global-scope="DesignSystem_9e2408.Badge" kind="{{ nw.kind }}" size="sm" hint-size="130px,22px">{{ nw.badge }}</x-import><span style="font-size:14px;color:var(--ink-500);white-space:nowrap">{{ nw.date }}</span><sc-if value="{{ nw.isNew }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:6px;background:var(--forest-900);color:var(--ink-on-dark);font-size:14px;font-weight:600;line-height:1.4">Новое</span></sc-if></div>
+<div style="font-family:var(--font-serif);font-weight:700;font-size:20px;line-height:1.3;color:var(--ink-900)">{{ nw.title }}</div>
+<div style="font-size:15px;line-height:1.55;color:var(--ink-700)">{{ nw.text }}</div>
+<sc-if value="{{ nw.href }}" hint-placeholder-val="{{ false }}"><a href="{{ nw.href }}" style="font-size:14.5px;font-weight:500;color:var(--forest-900);text-decoration:none">{{ nw.link }} →</a></sc-if>
+</div>
+</div></sc-for>
+</section>
+<section style="padding:clamp(18px,3vw,26px);background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<div style="display:flex;align-items:center;gap:10px"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="clipboard-list" size="{{ 24 }}" color="var(--ink-900)" hint-size="24px,24px"></x-import><h2 style="font-family:var(--font-serif);font-weight:700;font-size:22px;line-height:1.2;color:var(--ink-900);margin:0">Что нового на сайте</h2></div>
+<sc-for list="{{ log }}" as="d" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid var(--border)">
+<div style="font-size:14px;font-weight:600;color:var(--ink-900)">{{ d.label }}</div>
+<sc-for list="{{ d.lines }}" as="l" hint-placeholder-count="1"><div style="font-size:14.5px;line-height:1.5;color:var(--ink-700)">{{ l }}</div></sc-for>
+</div></sc-for>
+<sc-if value="{{ logEmpty }}" hint-placeholder-val="{{ false }}"><div style="font-size:14.5px;line-height:1.5;color:var(--ink-500)">Загружаем журнал…</div></sc-if>
+</section>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, filter: 'all', D: null, fresh: {}, look: (() => { try { return JSON.parse(localStorage.getItem('drakosha.settings') || '{}').look || 'light'; } catch (e) { return 'light'; } })() };
+  newsData() {
+    return [
+      { kind: 'feature', icon: 'search', badge: 'Новая функция', date: '2 октября 2026', iso: '2026-10-02', title: 'Поиск по всем разделам тем', text: 'Поиск находит слово в любом разделе любой темы и понимает его формы: «тромбоцит», «тромбоцитов», «тромбоцитами».', link: 'Попробовать', href: 'Дракоша.dc.html?screen=search' },
+      { kind: 'update', icon: 'settings', badge: 'Обновление сайта', date: '28 сентября 2026', iso: '2026-09-28', title: 'Сепия, тёмный облик и шрифт для дислексии', text: 'В настройках можно выбрать облик, гарнитуру и колонки на странице темы. Выбор запоминается.', link: 'Открыть настройки', href: 'Дракоша.dc.html?screen=settings' },
+      { kind: 'news', icon: 'clipboard-list', badge: 'Новости проекта', date: '25 сентября 2026', iso: '2026-09-25', title: '39 тем в четырёх предметах', text: 'Дерматовенерология, гинекология, госпитальная хирургия и нормальная физиология. У каждой темы есть полная и краткая версия.', link: '', href: '' },
+    ];
+  }
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this.onR);
+    if (this.state.look === 'dark') { const v = { '--paper': '#131915', '--surface': '#19201B', '--panel': '#1F2722', '--border': '#2E3832', '--white': '#222B25', '--ink-900': '#EDF0E9', '--ink-700': '#C6CDC3', '--ink-500': '#9AA49B', '--quote-ink': '#D3DAD0', '--forest-900': '#4A885A', '--forest-700': '#78AE84', '--sage-50': '#1D2721', '--sage-100': '#25322A', '--tint-red-bg': '#33201E', '--tint-red-fg': '#F08F84', '--tint-green-bg': '#1E2E22', '--tint-green-fg': '#8CC79A', '--tint-violet-bg': '#26233A', '--tint-violet-fg': '#B4ACF2', '--tint-blue-bg': '#1A2738', '--tint-blue-fg': '#8DB8EE', '--tint-amber-bg': '#33281A', '--tint-amber-fg': '#E5B26E', '--tint-orange-bg': '#35231A', '--tint-orange-fg': '#F0A07A' }; Object.entries(v).forEach(([k, x]) => document.documentElement.style.setProperty(k, x)); }
+    // отметка «Новое»: что уже открывали — в браузере; страница новостей снимает отметки после открытия
+    let seen = [];
+    try { seen = JSON.parse(localStorage.getItem('drakosha.newsSeen') || '[]'); } catch (e) { seen = []; }
+    const fresh = {}; const keys = this.newsData().map((n) => n.kind + '|' + n.title);
+    keys.forEach((k) => { if (seen.indexOf(k) < 0) fresh[k] = true; });
+    this.setState({ fresh });
+    try { localStorage.setItem('drakosha.newsSeen', JSON.stringify(keys)); } catch (e) {}
+    import('./content.js').then((m) => this.setState({ D: m.default }));
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const st = this.state, desk = st.w >= 900, D = st.D;
+    const KINDS = [['all', 'Все'], ['feature', 'Новая функция'], ['update', 'Обновление сайта'], ['news', 'Новости проекта']];
+    const TINT = { feature: 'green', update: 'amber', news: 'red' };
+    const MON = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    const all = this.newsData();
+    const items = all.filter((n) => st.filter === 'all' || n.kind === st.filter).map((n) => ({ ...n, tint: TINT[n.kind], isNew: !!st.fresh[n.kind + '|' + n.title] }));
+    // журнал изменений: функции и обновления сайта + добавленные темы (из тех же данных, что «Недавно добавленные темы» на главной)
+    const rows = all.filter((n) => n.kind !== 'news').map((n) => ({ iso: n.iso, d: new Date(n.iso + 'T12:00'), line: n.badge + ': ' + n.title }));
+    if (D) D.FEED.forEach(([sid, n, iso]) => { const S = D.SUBJECTS.find((x) => x.id === sid); if (S && S.topics[n - 1]) rows.push({ iso, d: new Date(iso), line: 'Добавлена тема «' + S.topics[n - 1][0] + '» — ' + S.name }); });
+    rows.sort((a, b) => (a.iso < b.iso ? 1 : a.iso > b.iso ? -1 : 0));
+    const log = [];
+    rows.forEach((r) => { const label = r.d.getDate() + ' ' + MON[r.d.getMonth()] + ' ' + r.d.getFullYear(); const last = log[log.length - 1]; if (last && last.label === label) last.lines.push(r.line); else log.push({ label, lines: [r.line] }); });
+    return {
+      cols: desk ? 'minmax(0,1.6fr) minmax(0,1fr)' : 'minmax(0,1fr)', logoTheme: st.look === 'dark' ? 'dark' : 'light',
+      crumbs: [{ label: 'Главная' }, { label: 'Новости и обновления' }], crumbGo: (it, i) => { if (i === 0) location.href = 'Дракоша.dc.html'; },
+      filters: KINDS.map(([id, label]) => ({ label, active: st.filter === id, go: () => this.setState({ filter: id }) })),
+      items, log, logEmpty: !D,
+    };
+  }
+}
+</script>
+</body>
+</html>
