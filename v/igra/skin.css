@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800&family=Russo+One&display=swap');
+/* Вариант «Игра»: тёплая тёмно-красная гамма эмблемы, золото, зелёная грива; жетоны, жирные рамки, твёрдые тени */
+html:root{
+  --font-serif:'Rubik','Source Serif 4',Georgia,sans-serif;
+  --font-sans:'Nunito','Inter',system-ui,sans-serif;
+  --font-ui:'Nunito','Inter',system-ui,sans-serif;
+  --font-display:'Russo One','Rubik',sans-serif;
+  --paper:#FFF3D6; --surface:#FFFBEF; --panel:#FFE7B0; --muted:#FBE3A8; --border:#3A2418; --white:#FFFFFF;
+  --ink-900:#2A1710; --ink-700:#3F2A20; --ink-500:#5C4234; --ink-400:#6E5444;
+  --forest-900:#2F4A1E; --forest-950:#223814; --forest-700:#3F6B26; --forest-success:#2F5A1E;
+  --sage-500:#7FA34F; --sage-300:#BCD58C; --sage-200:#D8E8B4; --sage-100:#E6F0C8; --sage-50:#F1F5D8;
+  --red-600:#D1352A; --red-800:#A3200F;
+  --info-bg:#E4F0FF; --info-fg:#0F3F8A; --info-border:#3A2418;
+  --warning-bg:#FFE0CC; --warning-fg:#8A1208; --warning-border:#3A2418;
+  --success-bg:#DDF0C0; --success-fg:#1E4A12; --success-border:#3A2418;
+  --tint-red-bg:#FFD6CC; --tint-red-fg:#A3200F;
+  --tint-green-bg:#D4EBA8; --tint-green-fg:#2F5A1E;
+  --tint-amber-bg:#FFD97A; --tint-amber-fg:#7A3E00;
+  --tint-orange-bg:#FFC9A0; --tint-orange-fg:#9A2A00;
+  --tint-blue-bg:#CFE4FF; --tint-blue-fg:#0F4C9A;
+  --tint-violet-bg:#E4DAFF; --tint-violet-fg:#4A3AA0;
+  --badge-note-bg:#D4EBA8; --badge-note-fg:#223814;
+  --badge-scheme-bg:#FFD0C4; --badge-scheme-fg:#8A1208;
+  --badge-news-bg:#FFC4B8; --badge-news-fg:#8A1208;
+  --badge-update-bg:#FFD97A; --badge-update-fg:#6A3200;
+  --badge-feature-bg:#C8E6A0; --badge-feature-fg:#223814;
+  --news-green-bg:#EAF3CC; --news-orange-bg:#FFE9C2; --news-red-bg:#FFDDD2;
+  --progress-track:#F6D9A0; --progress-fill:#E8A020; --action-primary:#D1352A; --action-primary-hover:#A3200F;
+  --focus-ring:rgba(209,53,42,.45);
+}
+body{background:var(--paper);background-image:radial-gradient(rgba(58,36,24,.09) 1.5px,transparent 1.6px);background-size:18px 18px}
+h1,h2,h3{font-family:'Russo One','Rubik',sans-serif;font-weight:400;letter-spacing:.01em}
+.pd-eyebrow{font-family:'Russo One','Rubik',sans-serif !important;color:var(--red-800) !important;letter-spacing:.08em !important}
+/* жетонные рамки и твёрдые тени вместо мягких */
+[style*="border-radius:12px"],[style*="border-radius: 12px"],[style*="border-radius:16px"],[style*="border-radius:14px"]{
+  border-radius:10px !important;border:3px solid #3A2418 !important;box-shadow:0 5px 0 #3A2418 !important}
+[style*="border-radius:10px"],[style*="border-radius: 10px"]{border-radius:8px !important}
+[style*="border-radius:8px"],[style*="border-radius: 8px"]{border-radius:6px !important}
+[style*="border-radius:6px"]{border-radius:4px !important}
+/* кнопки: плотные, объёмные */
+button,[role="button"],a[style*="background"]{font-family:'Rubik',sans-serif !important;font-weight:700 !important;
+  border:3px solid #3A2418 !important;box-shadow:0 4px 0 #3A2418 !important;transition:transform .08s,box-shadow .08s;min-height:44px}
+button:active,[role="button"]:active{transform:translateY(3px);box-shadow:0 1px 0 #3A2418 !important}
+/* первичные кнопки (тёмно-зелёные) — красные с золотом */
+button[style*="forest-900"],a[style*="forest-900"][style*="background"]{background:var(--red-600) !important;color:#FFF7DC !important;border-color:#3A2418 !important}
+/* прогресс: толстые полосы с золотой заливкой */
+[style*="progress"],[style*="height:6px"],[style*="height: 6px"],[style*="height:8px"]{border-radius:999px !important}
+[style*="progress-fill"]{background:linear-gradient(#FFC83D,#E69845) !important;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+/* числа — выразительные */
+[style*="--fs-stat"],[style*="font-size:34px"],[style*="font-size:28px"],[style*="font-size:32px"]{font-family:'Russo One',sans-serif !important;color:var(--red-800)}
+/* таблицы темы */
+table{border-collapse:separate;border-spacing:0;border:3px solid #3A2418;border-radius:8px;overflow:hidden}
+th{background:var(--forest-900) !important;color:#FFF7DC !important;font-family:'Rubik',sans-serif;font-weight:700}
+td,th{border-color:#3A2418 !important}
+/* ссылки и текст темы */
+a{text-decoration-thickness:2px;text-underline-offset:3px}
+img{image-rendering:auto}
+@media (max-width:640px){
+  [style*="border-radius:12px"],[style*="border-radius: 12px"]{box-shadow:0 4px 0 #3A2418 !important}
+}
+/* прогресс: золотая заливка в тёмной рамке-жетоне */
+[style*="var(--progress-track)"]{border:2px solid #3A2418;background:#F6D9A0 !important}
+[style*="var(--progress-fill)"]{background:linear-gradient(#FFD25A,#E8A020) !important}

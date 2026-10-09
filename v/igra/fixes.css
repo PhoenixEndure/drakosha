@@ -1,0 +1,8 @@
+/* Правки, общие для всех вариантов оформления. Скин их не переопределяет. */
+/* Логотип: шрифт словесного знака закреплён, какой бы шрифт ни выбрал скин */
+.pd-logo{--font-serif:'Source Serif 4','Literata','PT Serif',Georgia,serif;--font-logo-caps:'Montserrat','Inter',sans-serif}
+/* Телефон: блок «этапы» (карточки со стрелками) встаёт столбиком — в ряд текст не помещался */
+@media (max-width: 640px){
+  .pd-stages > div > div{flex-direction:column !important}
+  .pd-stages > div > div > span{justify-content:center;transform:rotate(90deg);padding:2px 0}
+}
