@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/colors.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/typography.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/tokens/base.css">
+<link rel="stylesheet" href="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/styles.css">
+<link rel="stylesheet" href="skin.css">
+<link rel="stylesheet" href="fixes.css">
+<script src="_ds/design-system-9e2408ae-6b66-4cf0-966c-c9d5b9633282/_ds_bundle.js"></script>
+
+</helmet>
+<div style="background:{{ cardBg }};border:{{ cardBd }};border-radius:12px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:12px;min-width:0;font-family:var(--read-font-ui,var(--font-ui));color:var(--ink-700)">
+<sc-if value="{{ hasHead }}" hint-placeholder-val="{{ false }}"><div><div style="font-family:var(--font-serif);font-weight:700;font-size:18px;line-height:1.25;color:var(--ink-900)">{{ head }}</div><sc-if value="{{ hasSub }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:var(--ink-500);margin-top:3px">{{ sub }}</div></sc-if></div></sc-if>
+
+<sc-if value="{{ b.isTable }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ b.hasTabs }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ b.tabs }}" as="tb" hint-placeholder-count="1"><button onClick="{{ tb.go }}" style="height:32px;padding:0 12px;border-radius:8px;border:{{ tb.bd }};background:{{ tb.bg }};color:{{ tb.fg }};font:500 13px var(--font-ui);cursor:pointer">{{ tb.label }}</button></sc-for></div></sc-if>
+<sc-if value="{{ b.hasSearch }}" hint-placeholder-val="{{ false }}"><input value="{{ b.q }}" onInput="{{ b.onQ }}" placeholder="Поиск по таблице…" style="height:38px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:var(--white);font:14px var(--font-ui);color:var(--ink-900);outline:none"></sc-if>
+<div style="overflow-x:auto;border:1px solid var(--border);border-radius:10px"><div style="min-width:{{ b.minW }}">
+<div style="display:grid;grid-template-columns:{{ b.grid }};background:var(--panel);font-size:12.5px;font-weight:600;color:var(--ink-700)"><sc-for list="{{ b.head }}" as="h" hint-placeholder-count="1"><div onClick="{{ h.sort }}" style="padding:9px 12px;cursor:{{ h.cur }};white-space:normal">{{ h.label }}{{ h.arrow }}</div></sc-for></div>
+<sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="1">
+<sc-if value="{{ r.isGroup }}" hint-placeholder-val="{{ false }}"><div style="padding:8px 12px;border-top:1px solid var(--border);background:var(--sage-50);font-size:13px;font-weight:700;color:var(--ink-900)">{{ r.label }}</div></sc-if>
+<sc-if value="{{ r.isRow }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ r.toggle }}" style="display:grid;grid-template-columns:{{ b.grid }};border-top:1px solid var(--border);cursor:{{ r.cur }};background:{{ r.bg }}">
+<sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="1"><div style="padding:9px 12px;font-size:13.5px;line-height:1.45;background:{{ c.bg }};color:{{ c.fg }};font-weight:{{ c.fw }};display:flex;flex-wrap:wrap;gap:5px;align-items:center;min-width:0">
+<sc-if value="{{ c.isText }}" hint-placeholder-val="{{ false }}">{{ c.t }}</sc-if>
+<sc-if value="{{ c.isChips }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ c.chips }}" as="ch" hint-placeholder-count="1"><span style="padding:3px 9px;border-radius:6px;background:{{ ch.bg }};color:{{ ch.fg }};font-size:12.5px;font-weight:500">{{ ch.t }}</span></sc-for></sc-if>
+<sc-if value="{{ c.isDot }}" hint-placeholder-val="{{ false }}"><span style="width:9px;height:9px;border-radius:50%;background:{{ c.dot }};flex:none"></span><span style="color:{{ c.dot }};font-weight:600">{{ c.t }}</span></sc-if>
+<sc-if value="{{ c.isList }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><sc-for list="{{ c.items }}" as="li" hint-placeholder-count="1"><div style="display:flex;gap:6px"><span style="color:{{ c.mark }};font-weight:700">•</span><span>{{ li.t }}</span></div></sc-for></div></sc-if>
+<sc-if value="{{ c.isTile }}" hint-placeholder-val="{{ false }}"><span style="padding:5px 10px;border-radius:8px;background:{{ c.tbg }};color:{{ c.tfg }};font-weight:600">{{ c.t }}</span></sc-if>
+<sc-if value="{{ c.isImg }}" hint-placeholder-val="{{ false }}"><div style="width:100%;max-width:96px;aspect-ratio:4/3;border-radius:6px;border:1px solid var(--border);background:repeating-linear-gradient(135deg,var(--panel) 0 8px,var(--surface) 8px 16px)"></div></sc-if>
+<sc-if value="{{ c.isMore }}" hint-placeholder-val="{{ false }}"><span style="color:var(--forest-900);font-weight:500;font-size:13px">{{ c.t }}</span></sc-if>
+</div></sc-for>
+</div>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 14px 12px;background:var(--sage-50);font-size:13.5px;line-height:1.55;color:var(--ink-700);border-top:1px dashed var(--sage-300)">{{ r.more }}</div></sc-if>
+</sc-if>
+</sc-for>
+</div></div>
+<sc-if value="{{ b.hasPager }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:center;gap:6px"><sc-for list="{{ b.pages }}" as="pg" hint-placeholder-count="1"><button onClick="{{ pg.go }}" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:{{ pg.bg }};color:{{ pg.fg }};font:600 13px var(--font-ui);cursor:pointer">{{ pg.n }}</button></sc-for></div></sc-if>
+<sc-if value="{{ b.hasLegend }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--ink-500)"><sc-for list="{{ b.legend }}" as="lg" hint-placeholder-count="1"><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:{{ lg.c }}"></span>{{ lg.t }}</span></sc-for></div></sc-if>
+<sc-if value="{{ b.hasNote }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 12px;border-radius:8px;background:var(--panel);font-size:13px;line-height:1.5;color:var(--ink-700)">{{ b.note }}</div></sc-if>
+</sc-if>
+
+<sc-if value="{{ b.isFlow }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ b.hasFilters }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ b.filters }}" as="ft" hint-placeholder-count="1"><button onClick="{{ ft.go }}" style="height:32px;padding:0 12px;border-radius:8px;border:{{ ft.bd }};background:{{ ft.bg }};color:{{ ft.fg }};font:500 13px var(--font-ui);cursor:pointer">{{ ft.label }}</button></sc-for></div></sc-if>
+<div style="display:flex;flex-direction:column;align-items:center;padding:8px 0">
+<sc-for list="{{ b.frows }}" as="fr" hint-placeholder-count="1">
+<sc-if value="{{ fr.notFirst }}" hint-placeholder-val="{{ false }}"><div style="width:1.5px;height:14px;background:var(--ink-400)"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--ink-400);margin-bottom:2px"></div></sc-if>
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%">
+<sc-for list="{{ fr.nodes }}" as="nd" hint-placeholder-count="1"><button onClick="{{ nd.go }}" style="flex:0 1 220px;min-width:0;padding:9px 12px;border-radius:10px;border:{{ nd.bd }};background:{{ nd.bg }};opacity:{{ nd.op }};cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;transition:opacity .2s"><span style="font:600 13.5px var(--font-ui);color:{{ nd.fg }}">{{ nd.label }}</span><span style="font:12px var(--font-ui);color:var(--ink-500)">{{ nd.sub }}</span></button></sc-for>
+</div>
+</sc-for>
+</div>
+<div style="padding:12px 14px;border-radius:10px;background:var(--sage-50)"><div style="font-size:14px;font-weight:600;color:var(--ink-900)">{{ b.dTitle }}</div><div style="font-size:13.5px;line-height:1.5;color:var(--ink-700);margin-top:2px">{{ b.dText }}</div></div>
+<sc-if value="{{ b.hasQuiz }}" hint-placeholder-val="{{ false }}">
+<div style="padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--panel);display:flex;flex-direction:column;gap:10px">
+<div style="font-size:14px;font-weight:600;color:var(--ink-900)">Проверьте себя: {{ b.qText }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ b.qOpts }}" as="qo" hint-placeholder-count="1"><button onClick="{{ qo.go }}" style="height:34px;padding:0 14px;border-radius:8px;border:{{ qo.bd }};background:{{ qo.bg }};color:var(--ink-900);font:500 13.5px var(--font-ui);cursor:pointer">{{ qo.t }}</button></sc-for></div>
+<sc-if value="{{ b.qShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13.5px;font-weight:500;color:{{ b.qColor }}">{{ b.qFeedback }}</div></sc-if>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ b.isRing }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;width:100%;max-width:360px;aspect-ratio:1/1;margin:0 auto">
+<svg viewBox="0 0 100 100" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+<sc-if value="{{ b.cycle }}" hint-placeholder-val="{{ false }}"><circle cx="50" cy="50" r="34" fill="none" stroke="var(--ink-400)" stroke-width="0.5"></circle></sc-if>
+<sc-for list="{{ b.spokes }}" as="sp" hint-placeholder-count="1"><line x1="50" y1="50" x2="{{ sp.x }}" y2="{{ sp.y }}" stroke="var(--ink-400)" stroke-width="0.4"></line></sc-for>
+<sc-for list="{{ b.arrows }}" as="ar" hint-placeholder-count="1"><polygon points="{{ ar.p }}" fill="var(--ink-400)"></polygon></sc-for>
+</svg>
+<div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;aspect-ratio:1/1;border-radius:50%;background:{{ b.centerBg }};color:{{ b.centerFg }};display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font:700 13px/1.25 var(--font-serif)">{{ b.center }}</div>
+<sc-for list="{{ b.ring }}" as="rn" hint-placeholder-count="1"><button onClick="{{ rn.go }}" style="position:absolute;left:{{ rn.x }};top:{{ rn.y }};transform:translate(-50%,-50%);width:{{ b.nodeW }};padding:8px 6px;border-radius:12px;border:{{ rn.bd }};background:{{ rn.bg }};color:{{ rn.fg }};font:600 12px/1.25 var(--font-ui);text-align:center;cursor:pointer">{{ rn.label }}</button></sc-for>
+</div>
+<div style="padding:12px 14px;border-radius:10px;background:var(--sage-50)"><div style="font-size:14px;font-weight:600;color:var(--ink-900)">{{ b.dTitle }}</div><div style="font-size:13.5px;line-height:1.5;color:var(--ink-700);margin-top:2px">{{ b.dText }}</div></div>
+</sc-if>
+
+<sc-if value="{{ b.isTimeline }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+<sc-for list="{{ b.phases }}" as="ph" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:8px"><div style="padding:8px;border-radius:8px;background:{{ ph.bg }};text-align:center;font:600 12.5px/1.3 var(--font-ui);color:var(--ink-900)">{{ ph.label }}</div><div style="position:relative;height:18px"><div style="position:absolute;left:-4px;right:-4px;top:8px;height:2px;background:var(--ink-400)"></div><div style="position:absolute;left:50%;top:3px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--white);border:2px solid {{ ph.fg }}"></div></div><div style="padding:8px 10px;border-radius:8px;background:{{ ph.bg }};display:flex;flex-direction:column;gap:4px"><sc-for list="{{ ph.items }}" as="li" hint-placeholder-count="1"><div style="display:flex;gap:6px;font-size:12.5px;line-height:1.4;color:var(--ink-700)"><span style="color:{{ ph.fg }};font-weight:700">•</span><span>{{ li.t }}</span></div></sc-for></div></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ b.isBranch }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center">
+<div style="padding:9px 18px;border-radius:10px;background:var(--badge-level-bg);color:var(--badge-level-fg);font:700 14px var(--font-serif)">{{ b.root }}</div>
+<div style="width:1.5px;height:12px;background:var(--ink-400)"></div>
+<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center"><div style="width:44px;height:44px;transform:rotate(45deg);border:1.5px solid var(--ink-400);background:var(--surface)"></div><span style="position:absolute;font:600 12px var(--font-ui);color:var(--ink-900)">{{ b.decision }}</span></div>
+<div style="width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1.5px solid var(--ink-400);padding-top:12px">
+<sc-for list="{{ b.opts }}" as="op" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:6px"><div style="padding:7px;border-radius:8px;background:{{ op.bg }};color:{{ op.fg }};text-align:center;font:600 12.5px/1.3 var(--font-ui)">{{ op.label }}</div><div style="font-size:12px;line-height:1.4;color:var(--ink-500);text-align:center">{{ op.text }}</div><div style="aspect-ratio:4/3;border-radius:8px;border:1px solid var(--border);background:repeating-linear-gradient(135deg,var(--panel) 0 8px,var(--surface) 8px 16px)"></div></div></sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ b.isCross }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr);gap:0;align-items:start">
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:13px;font-weight:700;color:var(--ink-900);height:20px">{{ b.lTitle }}</div><sc-for list="{{ b.left }}" as="lf" hint-placeholder-count="1"><div style="height:40px;display:flex;align-items:center;padding:0 10px;border-radius:8px;background:{{ lf.bg }};color:var(--ink-900);font-size:12.5px;font-weight:500">{{ lf.t }}</div></sc-for></div>
+<svg viewBox="{{ b.vb }}" preserveAspectRatio="none" style="width:100%;height:{{ b.svgH }};margin-top:30px"><sc-for list="{{ b.links }}" as="lk" hint-placeholder-count="1"><path d="{{ lk.d }}" fill="none" stroke="{{ lk.c }}" stroke-width="1.6" stroke-dasharray="{{ lk.dash }}" vector-effect="non-scaling-stroke"></path></sc-for></svg>
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:13px;font-weight:700;color:var(--ink-900);height:20px">{{ b.rTitle }}</div><sc-for list="{{ b.right }}" as="rt" hint-placeholder-count="1"><div style="height:40px;display:flex;align-items:center;padding:0 10px;border-radius:8px;background:var(--panel);color:var(--ink-900);font-size:12.5px;font-weight:500">{{ rt.t }}</div></sc-for></div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink-500)"><sc-for list="{{ b.legend }}" as="lg" hint-placeholder-count="1"><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:18px;height:0;border-top:2px {{ lg.style }} {{ lg.c }}"></span>{{ lg.t }}</span></sc-for></div>
+</sc-if>
+
+<sc-if value="{{ b.isExplore }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ b.hasTabs }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ b.tabs }}" as="tb" hint-placeholder-count="1"><button onClick="{{ tb.go }}" style="height:32px;padding:0 12px;border-radius:8px;border:{{ tb.bd }};background:{{ tb.bg }};color:{{ tb.fg }};font:500 13px var(--font-ui);cursor:pointer">{{ tb.label }}</button></sc-for></div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px"><sc-for list="{{ b.items }}" as="it" hint-placeholder-count="1"><button onClick="{{ it.go }}" style="display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:10px;border:{{ it.bd }};background:var(--surface);cursor:pointer"><div style="aspect-ratio:4/3;border-radius:8px;background:{{ it.bg }}"></div><span style="font:600 12.5px var(--font-ui);color:var(--ink-900)">{{ it.label }}</span></button></sc-for></div>
+<div style="padding:12px 14px;border-radius:10px;background:var(--sage-50)"><div style="font-size:14px;font-weight:600;color:var(--ink-900)">{{ b.dTitle }}</div><div style="display:flex;flex-direction:column;gap:3px;margin-top:4px"><sc-for list="{{ b.dItems }}" as="li" hint-placeholder-count="1"><div style="display:flex;gap:6px;font-size:13.5px;line-height:1.45;color:var(--ink-700)"><span style="color:var(--forest-700);font-weight:700">•</span><span>{{ li.t }}</span></div></sc-for></div></div>
+</sc-if>
+
+<sc-if value="{{ b.isTree }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center">
+<div style="padding:8px 18px;border-radius:10px;background:var(--badge-level-bg);color:var(--badge-level-fg);font:700 14px var(--font-serif)">{{ b.root }}</div>
+<div style="width:1.5px;height:12px;background:var(--ink-400)"></div>
+<div style="width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1.5px solid var(--ink-400);padding-top:12px">
+<sc-for list="{{ b.cols }}" as="cl" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:4px;padding:8px;border-radius:10px;background:var(--panel)"><div style="padding:6px;border-radius:8px;background:{{ cl.bg }};color:{{ cl.fg }};text-align:center;font:600 12.5px/1.3 var(--font-ui)">{{ cl.label }}</div><sc-for list="{{ cl.items }}" as="it" hint-placeholder-count="1"><button onClick="{{ it.go }}" style="display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:6px;border:none;background:{{ it.bg }};text-align:left;cursor:pointer;font:12.5px var(--font-ui);color:var(--ink-900)"><span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--forest-700);background:{{ it.dot }};flex:none"></span>{{ it.t }}</button></sc-for></div></sc-for>
+</div>
+</div>
+<div style="padding:12px 14px;border-radius:10px;background:var(--sage-50)"><div style="font-size:14px;font-weight:600;color:var(--ink-900)">{{ b.dTitle }}</div><div style="font-size:13.5px;line-height:1.5;color:var(--ink-700);margin-top:2px">{{ b.dText }}</div></div>
+</sc-if>
+
+<sc-if value="{{ b.isNested }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;overflow:hidden">
+<sc-for list="{{ b.nrows }}" as="nr" hint-placeholder-count="1"><div onClick="{{ nr.go }}" style="display:flex;align-items:center;gap:8px;padding:8px 12px 8px {{ nr.pad }};border-top:1px solid var(--border);cursor:{{ nr.cur }};background:{{ nr.bg }}"><span style="width:16px;font:700 13px var(--font-ui);color:var(--forest-700)">{{ nr.sign }}</span><span style="font-size:13.5px;font-weight:{{ nr.fw }};color:var(--ink-900)">{{ nr.t }}</span></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ b.isIllus }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px"><sc-for list="{{ b.icols }}" as="ic" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:6px;border:1px solid var(--border);border-radius:10px;overflow:hidden"><div style="padding:7px;background:{{ ic.bg }};color:{{ ic.fg }};text-align:center;font:600 13px var(--font-ui)">{{ ic.label }}</div><div style="aspect-ratio:4/3;margin:0 8px;border-radius:6px;background:repeating-linear-gradient(135deg,var(--panel) 0 8px,var(--surface) 8px 16px)"></div><div style="padding:0 10px 10px;display:flex;flex-direction:column;gap:3px"><sc-for list="{{ ic.items }}" as="li" hint-placeholder-count="1"><div style="display:flex;gap:6px;font-size:12.5px;line-height:1.4;color:var(--ink-700)"><span style="color:{{ ic.fg }};font-weight:700">•</span><span>{{ li.t }}</span></div></sc-for></div></div></sc-for></div>
+</sc-if>
+
+<sc-if value="{{ b.isImage }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ b.hasTabs }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ b.tabs }}" as="tb" hint-placeholder-count="1"><button onClick="{{ tb.go }}" style="height:32px;padding:0 12px;border-radius:8px;border:{{ tb.bd }};background:{{ tb.bg }};color:{{ tb.fg }};font:500 13px var(--font-ui);cursor:pointer">{{ tb.label }}</button></sc-for></div></sc-if>
+<div style="display:grid;grid-template-columns:{{ b.igrid }};gap:10px;align-items:start">
+<sc-for list="{{ b.pics }}" as="pc" hint-placeholder-count="1">
+<div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<sc-if value="{{ pc.hasHead }}" hint-placeholder-val="{{ false }}"><div style="padding:6px;border-radius:8px;background:{{ pc.hbg }};color:{{ pc.hfg }};text-align:center;font:600 13px var(--font-ui)">{{ pc.head }}</div></sc-if>
+<div onClick="{{ pc.go }}" style="position:relative;aspect-ratio:{{ pc.ratio }};border-radius:10px;border:{{ pc.bd }};background:{{ pc.bg }};cursor:{{ pc.cur }};overflow:hidden">
+<sc-if value="{{ pc.hasNum }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:8px;top:8px;width:22px;height:22px;border-radius:50%;background:var(--ink-900);color:#fff;font:600 12px/22px var(--font-ui);text-align:center">{{ pc.n }}</span></sc-if>
+<sc-for list="{{ pc.pins }}" as="pn" hint-placeholder-count="1"><button onClick="{{ pn.go }}" style="position:absolute;left:{{ pn.x }};top:{{ pn.y }};transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;border:2px solid #fff;background:{{ pn.bg }};color:#fff;font:600 12px var(--font-ui);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.25)">{{ pn.n }}</button></sc-for>
+<sc-for list="{{ pc.dims }}" as="dm" hint-placeholder-count="1"><div style="position:absolute;left:{{ dm.x }};top:{{ dm.y }};width:{{ dm.w }};height:{{ dm.h }};border:{{ dm.b }}"></div></sc-for>
+<sc-for list="{{ pc.tags }}" as="tg" hint-placeholder-count="1"><span style="position:absolute;left:{{ tg.x }};top:{{ tg.y }};padding:2px 8px;border-radius:6px;background:var(--white);border:1px solid var(--border);font:600 12px var(--font-ui);color:var(--ink-900);white-space:nowrap">{{ tg.t }}</span></sc-for>
+<sc-if value="{{ pc.hasArrows }}" hint-placeholder-val="{{ false }}"><button onClick="{{ b.prev }}" style="position:absolute;left:8px;top:50%;margin-top:-16px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,.9);font:700 16px var(--font-ui);cursor:pointer">‹</button><button onClick="{{ b.next }}" style="position:absolute;right:8px;top:50%;margin-top:-16px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,.9);font:700 16px var(--font-ui);cursor:pointer">›</button></sc-if>
+<sc-if value="{{ pc.hasLabel }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:3px 10px;border-radius:6px;background:var(--surface);border:1px solid var(--border);font:500 12px var(--font-ui);color:var(--ink-500);white-space:nowrap">{{ pc.label }}</span></sc-if>
+</div>
+<sc-if value="{{ pc.hasCap }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;line-height:1.4;color:var(--ink-700)">{{ pc.cap }}</div></sc-if>
+</div>
+</sc-for>
+<sc-if value="{{ b.hasSide }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+<sc-if value="{{ b.hasLegendList }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ b.legendList }}" as="ll" hint-placeholder-count="1"><div onClick="{{ ll.go }}" style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:8px;background:{{ ll.bg }};cursor:pointer"><span style="width:22px;height:22px;border-radius:50%;background:var(--ink-900);color:#fff;font:600 12px/22px var(--font-ui);text-align:center;flex:none">{{ ll.n }}</span><span style="font-size:13px;color:var(--ink-900)">{{ ll.t }}</span></div></sc-for></sc-if>
+<sc-if value="{{ b.hasCase }}" hint-placeholder-val="{{ false }}"><div style="padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;gap:6px"><div style="font:700 14px var(--font-serif);color:var(--ink-900)">{{ b.caseTitle }}</div><sc-for list="{{ b.caseItems }}" as="ci" hint-placeholder-count="1"><div style="font-size:12.5px;line-height:1.45;color:var(--ink-700)">{{ ci.t }}</div></sc-for></div></sc-if>
+<sc-if value="{{ b.hasMini }}" hint-placeholder-val="{{ false }}"><div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><sc-for list="{{ b.mini }}" as="mr" hint-placeholder-count="1"><div style="display:grid;grid-template-columns:60px minmax(0,1fr);border-top:1px solid var(--border);background:{{ mr.bg }}"><div style="padding:6px 8px;font-size:12px;font-weight:600;color:var(--ink-900)">{{ mr.a }}</div><div style="padding:6px 8px;font-size:12px;color:var(--ink-700)">{{ mr.b }}</div></div></sc-for></div></sc-if>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ b.hasThumbs }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;overflow-x:auto"><sc-for list="{{ b.thumbs }}" as="th" hint-placeholder-count="1"><button onClick="{{ th.go }}" style="flex:none;width:58px;height:44px;border-radius:6px;border:{{ th.bd }};background:#1E2620;cursor:pointer"></button></sc-for></div></sc-if>
+<sc-if value="{{ b.hasStepNav }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:10px"><button onClick="{{ b.prev }}" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer">‹</button><div style="flex:1;height:4px;border-radius:2px;background:var(--border);overflow:hidden"><div style="height:100%;width:{{ b.stepW }};background:var(--forest-700);transition:width .2s"></div></div><span style="font-size:12.5px;color:var(--ink-500)">{{ b.stepLabel }}</span><button onClick="{{ b.next }}" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer">›</button></div></sc-if>
+<sc-if value="{{ b.hasInfo }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 12px;border-radius:8px;background:var(--panel)"><div style="font-size:13.5px;font-weight:600;color:var(--ink-900)">{{ b.infoTitle }}</div><div style="font-size:13px;line-height:1.5;color:var(--ink-700);margin-top:2px">{{ b.infoText }}</div></div></sc-if>
+<sc-if value="{{ b.hasKey }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 12px;border-radius:8px;background:var(--success-bg);font-size:13px;line-height:1.5;color:var(--ink-700)"><b style="color:var(--ink-900)">Ключевой вывод. </b>{{ b.key }}</div></sc-if>
+<div><div style="font-size:13px;font-weight:600;color:var(--ink-900)">{{ b.cap }}</div><div style="font-size:12.5px;color:var(--ink-500);margin-top:2px">{{ b.capSub }}</div></div>
+</sc-if>
+
+<sc-if value="{{ b.isInfo }}" hint-placeholder-val="{{ false }}">
+<div style="padding:10px;border-radius:10px;background:var(--tint-red-bg);color:var(--tint-red-fg);text-align:center;font:700 16px var(--font-serif)">{{ b.ititle }}</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px"><sc-for list="{{ b.icards }}" as="ic" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;overflow:hidden"><div style="padding:8px;background:{{ ic.bg }};color:{{ ic.fg }};text-align:center;font:700 13px var(--font-ui)">{{ ic.label }}</div><div style="padding:8px;font-size:12.5px;line-height:1.4;color:var(--ink-700);text-align:center">{{ ic.target }}</div><div style="margin:0 8px;aspect-ratio:1/1;border-radius:8px;background:repeating-linear-gradient(135deg,var(--panel) 0 8px,var(--surface) 8px 16px)"></div><div style="padding:8px;font-size:12.5px;font-weight:600;color:var(--ink-900);text-align:center">{{ ic.effect }}</div></div></sc-for></div>
+<div><div style="font-size:13px;font-weight:600;color:var(--ink-900)">{{ b.cap }}</div></div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;520px&quot;,&quot;height&quot;:&quot;auto&quot;},&quot;spec&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;},&quot;head&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sub&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;uid&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;framed&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { ui: {} };
+  set(k, v) { this.setState((s) => ({ ui: { ...s.ui, [k]: v } })); }
+  renderVals() {
+    const ui = this.state.ui, P = this.props, s = P.spec || { kind: 'timeline', phases: [['Секунды', 'red', ['Спазм сосуда']], ['Минуты', 'amber', ['Агрегация', 'Свёртывание']], ['Дни', 'green', ['Фибринолиз']]] };
+    const tint = (x) => (x ? { bg: 'var(--tint-' + x + '-bg)', fg: 'var(--tint-' + x + '-fg)' } : { bg: 'var(--panel)', fg: 'var(--ink-700)' });
+    const DOT = { g: 'var(--forest-700)', y: 'var(--tint-amber-fg)', r: 'var(--red-600)' };
+    const STR = 'repeating-linear-gradient(135deg,var(--panel) 0 10px,var(--surface) 10px 20px)';
+    const DARK = 'repeating-linear-gradient(135deg,#1E2620 0 12px,#232C25 12px 24px)';
+    const pts = (a) => (a || []).map((t) => ({ t }));
+    const tabsOf = (id, labels) => { const cur = Math.min(ui[id + ':tab'] || 0, labels.length - 1); return { cur, tabs: labels.map((l, i) => ({ label: l, bd: i === cur ? '1px solid var(--forest-900)' : '1px solid var(--border)', bg: i === cur ? 'var(--forest-900)' : 'var(--surface)', fg: i === cur ? '#fff' : 'var(--ink-900)', go: () => this.set(id + ':tab', i) })) }; };
+    const panel = (t, x) => ({ dTitle: t, dText: x });
+    const cell = (x) => {
+      const o = { bg: 'transparent', fg: 'var(--ink-700)', fw: 400 };
+      if (typeof x === 'string' || typeof x === 'number') return { ...o, isText: true, t: String(x) };
+      if (x.b) return { ...o, isText: true, t: x.b, fw: 600, fg: 'var(--ink-900)' };
+      if (x.chips) return { ...o, isChips: true, chips: x.chips.map(([t, tn]) => ({ t, ...tint(tn) })) };
+      if (x.dot) return { ...o, isDot: true, dot: DOT[x.dot], t: x.t };
+      if (x.list) return { ...o, isList: true, items: pts(x.list), mark: DOT[x.mark || 'g'] };
+      if (x.tile) { const c = tint(x.tone); return { ...o, isTile: true, t: x.tile, tbg: c.bg, tfg: c.fg }; }
+      if (x.img) return { ...o, isImg: true };
+      if (x.more) return { ...o, isMore: true, t: x.more };
+      if (x.m) { const c = tint(x.m); return { ...o, isText: true, t: x.t, bg: c.bg, fg: c.fg, fw: 500 }; }
+      return { ...o, isText: true, t: String(x.t || '') };
+    };
+    const txt = (r) => (Array.isArray(r) ? r : r.cells || []).map((c) => (typeof c === 'string' ? c : c.t || c.b || c.tile || '')).join(' ').toLowerCase();
+    const table = (id, sp) => {
+      let src = sp, tabs = null;
+      if (sp.tabs) { const t = tabsOf(id, sp.tabs.map((x) => x.label)); tabs = t.tabs; src = { ...sp.tabs[t.cur], tabKey: t.cur }; }
+      let rows = src.rows.slice();
+      const q = ui[id + ':q'] || '';
+      if (sp.search && q) rows = rows.filter((r) => r.group || txt(r).includes(q.toLowerCase()));
+      const so = ui[id + ':sort'];
+      if (sp.sort && so) rows.sort((a, b) => { const A = txt([(Array.isArray(a) ? a : a.cells)[so.i]]), B = txt([(Array.isArray(b) ? b : b.cells)[so.i]]); return A < B ? -so.d : A > B ? so.d : 0; });
+      let pages = null;
+      if (sp.pager) { const per = sp.pager === true ? 5 : sp.pager, n = Math.ceil(rows.length / per), pg = Math.min(ui[id + ':pg'] || 0, Math.max(0, n - 1)); pages = Array.from({ length: n }, (_, i) => ({ n: i + 1, bg: i === pg ? 'var(--forest-900)' : 'var(--surface)', fg: i === pg ? '#fff' : 'var(--ink-900)', go: () => this.set(id + ':pg', i) })); rows = rows.slice(pg * per, pg * per + per); }
+      return {
+        isTable: true, hasTabs: !!tabs, tabs: tabs || [], hasSearch: !!sp.search, q, onQ: (e) => { this.set(id + ':q', e.target.value); this.set(id + ':pg', 0); },
+        grid: src.grid || sp.grid || src.cols.map((_, i) => (i === 0 ? 'minmax(0,1.1fr)' : 'minmax(0,1fr)')).join(' '), minW: sp.minW || src.minW || '0',
+        head: src.cols.map((l, i) => ({ label: l, cur: sp.sort ? 'pointer' : 'default', arrow: sp.sort ? (so && so.i === i ? (so.d > 0 ? ' ↑' : ' ↓') : ' ↕') : '', sort: sp.sort ? () => this.set(id + ':sort', { i, d: so && so.i === i ? -so.d : 1 }) : undefined })),
+        rows: rows.map((r, ri) => {
+          if (r.group) return { isGroup: true, label: r.group };
+          const cells = Array.isArray(r) ? r : r.cells, k = id + ':r' + (src.tabKey || 0) + ':' + txt(r).slice(0, 24), open = !!ui[k] && !!r.more;
+          return { isRow: true, cells: cells.map(cell), more: r.more || '', open, cur: r.more ? 'pointer' : 'default', bg: open ? 'var(--sage-50)' : 'transparent', toggle: r.more ? () => this.set(k, !ui[k]) : undefined };
+        }),
+        hasPager: !!pages && pages.length > 1, pages: pages || [], hasLegend: !!sp.legend, legend: (sp.legend || []).map(([c, t]) => ({ c: DOT[c] || c, t })), hasNote: !!sp.note, note: sp.note || '',
+      };
+    };
+    const flow = (id, sp) => {
+      const act = ui[id + ':n'], fl = ui[id + ':f'] || 'all';
+      let det = null;
+      const frows = sp.rows.map((row, ri) => ({ notFirst: ri > 0, nodes: row.map((n) => { if (n.id === act) det = n; const c = tint(n.tone); return { label: n.label, sub: n.sub || '', bg: c.bg, fg: c.fg, bd: n.id === act ? '2px solid var(--forest-700)' : '2px solid transparent', op: fl === 'all' || (n.cat || []).includes(fl) ? 1 : 0.28, go: () => this.set(id + ':n', n.id) }; }) }));
+      const o = { isFlow: true, frows, hasFilters: !!sp.filters, filters: (sp.filters || []).map(([fid, l]) => ({ label: l, bd: fl === fid ? '1px solid var(--forest-900)' : '1px solid var(--border)', bg: fl === fid ? 'var(--forest-900)' : 'var(--surface)', fg: fl === fid ? '#fff' : 'var(--ink-900)', go: () => this.set(id + ':f', fid) })), ...panel(det ? det.label : 'Нажмите на блок схемы', det ? det.info : (sp.hint || 'Под схемой появится пояснение к выбранному этапу.')) };
+      if (sp.quiz) { const a = ui[id + ':qa'], ok = a === sp.quiz.a; Object.assign(o, { hasQuiz: true, qText: sp.quiz.q, qOpts: sp.quiz.o.map((t, i) => ({ t, bd: a === i ? '2px solid var(--forest-700)' : '1px solid var(--border)', bg: a === i ? 'var(--sage-100)' : 'var(--surface)', go: () => this.set(id + ':qa', i) })), qShow: a != null, qFeedback: ok ? 'Правильно! ' + (sp.quiz.e || '') : 'Неверно. ' + (sp.quiz.hint || 'Попробуйте ещё раз.'), qColor: ok ? 'var(--forest-700)' : 'var(--red-600)' }); }
+      return o;
+    };
+    const ring = (id, sp) => {
+      const n = sp.nodes.length, act = ui[id + ':n'], cyc = sp.kind === 'cycle', R = cyc ? 34 : 38;
+      const pos = sp.nodes.map((_, i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / n; return [50 + R * Math.cos(a), 50 + R * Math.sin(a)]; });
+      const arrows = cyc ? sp.nodes.map((_, i) => { const a = -Math.PI / 2 + ((i + 0.5) * 2 * Math.PI) / n, x = 50 + R * Math.cos(a), y = 50 + R * Math.sin(a), tx = -Math.sin(a), ty = Math.cos(a), nx = Math.cos(a), ny = Math.sin(a), L = 3; return { p: [x + tx * L, y + ty * L, x - tx * L + nx * 2, y - ty * L + ny * 2, x - tx * L - nx * 2, y - ty * L - ny * 2].map((v) => v.toFixed(2)).join(' ') }; }) : [];
+      const det = sp.nodes.find((x) => x.label === act);
+      return { isRing: true, cycle: cyc, center: sp.center, centerBg: cyc ? 'transparent' : 'var(--forest-900)', centerFg: cyc ? 'var(--ink-900)' : '#fff', nodeW: cyc ? '30%' : '27%', spokes: cyc ? [] : pos.map(([x, y]) => ({ x: x.toFixed(1), y: y.toFixed(1) })), arrows,
+        ring: sp.nodes.map((nd, i) => { const c = tint(nd.tone); return { label: nd.label, x: pos[i][0] + '%', y: pos[i][1] + '%', bg: c.bg, fg: c.fg, bd: act === nd.label ? '2px solid var(--forest-700)' : '2px solid transparent', go: () => this.set(id + ':n', nd.label) }; }),
+        ...panel(det ? det.label : 'Нажмите на элемент', det ? det.info : sp.hint || '') };
+    };
+    const img = (id, sp) => {
+      const o = { isImage: true, igrid: sp.grid || '1fr', cap: sp.cap || '', capSub: sp.capSub || '', pics: [], hasSide: false };
+      const pic = (p) => ({ hasHead: !!p.head, head: p.head || '', hbg: tint(p.tone).bg, hfg: tint(p.tone).fg, ratio: p.ratio || '4/3', bd: p.bd || '1px solid var(--border)', bg: p.dark ? DARK : STR, cur: p.go ? 'pointer' : 'default', go: p.go, hasNum: !!p.n, n: p.n, pins: p.pins || [], dims: p.dims || [], tags: p.tags || [], hasArrows: !!p.arrows, hasLabel: !p.noLabel, label: p.label || 'снимок', hasCap: !!p.cap, cap: p.cap || '' });
+      const t = sp.type;
+      if (t === 'pins') {
+        const a = ui[id + ':p'];
+        o.pics = [pic({ pins: sp.pins.map((p, i) => ({ n: i + 1, x: p[0] + '%', y: p[1] + '%', bg: a === i ? 'var(--red-600)' : 'var(--forest-900)', go: (e) => { e.stopPropagation(); this.set(id + ':p', i); } })), noLabel: true })];
+        Object.assign(o, { igrid: 'minmax(0,1.3fr) minmax(0,1fr)', hasSide: true, hasLegendList: true, legendList: sp.legend.map((x, i) => ({ n: i + 1, t: x, bg: a === i ? 'var(--sage-100)' : 'transparent', go: () => this.set(id + ':p', i) })), hasInfo: a != null, infoTitle: a != null ? sp.legend[a] : '', infoText: a != null ? (sp.info || [])[a] || '' : '' });
+      }
+      if (t === 'single') o.pics = [pic({ ratio: sp.ratio || '16/10', label: sp.label, tags: sp.tags || [] })];
+      if (t === 'compare') { o.igrid = 'repeat(' + sp.items.length + ',minmax(0,1fr))'; o.pics = sp.items.map((it) => pic({ head: it[0], tone: it[1], cap: it[2], label: sp.label })); }
+      if (t === 'series') {
+        const n = sp.items.length, cur = Math.min(ui[id + ':s'] || 0, n - 1);
+        o.igrid = 'repeat(' + n + ',minmax(0,1fr))';
+        o.pics = sp.items.map((it, i) => pic({ n: i + 1, cap: it[0], bd: i === cur ? '2px solid var(--forest-700)' : '1px solid var(--border)', go: () => this.set(id + ':s', i), label: 'этап ' + (i + 1) }));
+        Object.assign(o, { hasStepNav: true, stepW: ((cur + 1) / n) * 100 + '%', stepLabel: cur + 1 + ' / ' + n, prev: () => this.set(id + ':s', Math.max(0, cur - 1)), next: () => this.set(id + ':s', Math.min(n - 1, cur + 1)), hasInfo: true, infoTitle: sp.items[cur][0], infoText: sp.items[cur][1] });
+      }
+      if (t === 'gallery') {
+        const n = sp.items.length, cur = Math.min(ui[id + ':g'] || 0, n - 1), z = !!ui[id + ':z'];
+        o.pics = [pic({ dark: true, ratio: z ? '1/1' : '16/10', arrows: true, label: sp.items[cur], go: () => this.set(id + ':z', !z) })];
+        Object.assign(o, { hasThumbs: true, thumbs: sp.items.map((_, i) => ({ bd: i === cur ? '2px solid var(--forest-700)' : '2px solid transparent', go: () => this.set(id + ':g', i) })), prev: (e) => { e.stopPropagation(); this.set(id + ':g', (cur - 1 + n) % n); }, next: (e) => { e.stopPropagation(); this.set(id + ':g', (cur + 1) % n); }, capSub: cur + 1 + ' из ' + n + ' · ' + sp.items[cur] });
+      }
+      if (t === 'case') { o.pics = [pic({ ratio: '3/4', label: sp.label })]; Object.assign(o, { igrid: 'minmax(0,1fr) minmax(0,1.2fr)', hasSide: true, hasCase: true, caseTitle: sp.caseTitle || 'Клинический пример', caseItems: pts(sp.items) }); }
+      if (t === 'mixed') { o.pics = [pic({ ratio: '1/1', label: sp.label })]; Object.assign(o, { igrid: 'minmax(0,1fr) minmax(0,1.2fr)', hasSide: true, hasMini: true, mini: sp.mini.map(([a, b], i) => ({ a, b, bg: i === 0 ? 'var(--panel)' : 'transparent' })), hasKey: !!sp.key, key: sp.key || '' }); }
+      if (t === 'scale') o.pics = [pic({ ratio: '16/10', noLabel: true, dims: [{ x: '30%', y: '30%', w: '26%', h: '0', b: '1.5px solid var(--ink-900)' }, { x: '62%', y: '22%', w: '0', h: '44%', b: '1.5px solid var(--ink-900)' }, { x: '74%', y: '86%', w: '18%', h: '0', b: '3px solid var(--ink-900)' }], tags: [{ x: '33%', y: '18%', t: sp.a }, { x: '64%', y: '40%', t: sp.b }, { x: '70%', y: '74%', t: 'Масштаб: ' + sp.scale }] })];
+      return o;
+    };
+    const build = (id, sp) => {
+      switch (sp.kind) {
+        case 'table': return table(id, sp);
+        case 'flow': return flow(id, sp);
+        case 'cycle': case 'radial': return ring(id, sp);
+        case 'image': return img(id, sp);
+        case 'explore': {
+          let items = sp.items, tabs = null;
+          if (sp.tabs) { const t = tabsOf(id, sp.tabs.map((x) => x.label)); tabs = t.tabs; items = sp.tabs[t.cur].items; }
+          const a = Math.min(ui[id + ':a'] || 0, items.length - 1);
+          return { isExplore: true, hasTabs: !!tabs, tabs: tabs || [], items: items.map(([l], i) => ({ label: l, bg: STR, bd: i === a ? '2px solid var(--forest-700)' : '1px solid var(--border)', go: () => this.set(id + ':a', i) })), dTitle: items[a][0], dItems: pts(items[a][1]) };
+        }
+        case 'timeline': return { isTimeline: true, phases: sp.phases.map(([label, tn, items]) => ({ label, ...tint(tn), items: pts(items) })) };
+        case 'branch': return { isBranch: true, root: sp.root, decision: sp.decision || 'Исход', opts: sp.opts.map(([label, tn, text]) => ({ label, text, ...tint(tn) })) };
+        case 'tree': {
+          const a = ui[id + ':t'] || (sp.cols[0][2][0] || [])[0]; let det = '';
+          const cols = sp.cols.map(([label, tn, items]) => ({ label, ...tint(tn), items: items.map(([t, d]) => { if (t === a) det = d; return { t, bg: t === a ? 'var(--sage-100)' : 'transparent', dot: t === a ? 'var(--forest-700)' : 'transparent', go: () => this.set(id + ':t', t) }; }) }));
+          return { isTree: true, root: sp.root, cols, dTitle: a, dText: det };
+        }
+        case 'nested': {
+          const out = [];
+          const walk = (node, depth, key) => { const [t, kids] = node, k = id + ':' + key, open = ui[k] ?? depth < 1; out.push({ t, pad: 12 + depth * 20 + 'px', sign: kids ? (open ? '−' : '+') : '·', fw: depth < 2 ? 600 : 400, cur: kids ? 'pointer' : 'default', bg: depth === 0 ? 'var(--sage-50)' : 'transparent', go: kids ? () => this.set(k, !open) : undefined }); if (kids && open) kids.forEach((c, i) => walk(c, depth + 1, key + '.' + i)); };
+          walk(sp.tree, 0, '0');
+          return { isNested: true, nrows: out };
+        }
+        case 'illus': return { isIllus: true, icols: sp.cols.map(([label, tn, items]) => ({ label, ...tint(tn), items: pts(items) })) };
+        case 'cross': {
+          const n = Math.max(sp.left.length, sp.right.length), H = n * 50, y = (i) => i * 50 + 20;
+          return { isCross: true, lTitle: sp.lTitle, rTitle: sp.rTitle, left: sp.left.map(([t, tn]) => ({ t, bg: tint(tn).bg })), right: pts(sp.right), vb: '0 0 100 ' + H, svgH: H + 'px', links: sp.links.map(([a, b, kind]) => ({ d: 'M0 ' + y(a) + ' C50 ' + y(a) + ' 50 ' + y(b) + ' 100 ' + y(b), c: kind === 'side' ? 'var(--tint-blue-fg)' : 'var(--red-600)', dash: kind === 'side' ? '4 3' : '' })), legend: [{ c: 'var(--red-600)', style: 'solid', t: sp.mainLabel || 'Основная связь' }, { c: 'var(--tint-blue-fg)', style: 'dashed', t: sp.sideLabel || 'Дополнительная связь' }] };
+        }
+        case 'info': return { isInfo: true, ititle: sp.title, icards: sp.cards.map(([label, tn, target, effect]) => ({ label, target, effect, ...tint(tn) })), cap: sp.cap || '' };
+        default: return {};
+      }
+    };
+    const id = P.uid || 'b';
+    const framed = P.framed !== false;
+    return {
+      b: build(id, s), hasHead: !!P.head, head: P.head || '', hasSub: !!P.sub, sub: P.sub || '',
+      cardBg: framed ? 'var(--surface)' : 'transparent', cardBd: framed ? '1px solid var(--border)' : 'none', cardPad: framed ? 'clamp(14px,2vw,20px)' : '0',
+    };
+  }
+}
+</script>
+</body>
+</html>
