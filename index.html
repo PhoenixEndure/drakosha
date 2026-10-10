@@ -75,7 +75,6 @@ a:hover{color:var(--forest-700)}
 <sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}">
 <div data-hero-dragon="laptop" style="position:absolute;right:clamp(24px,6vw,96px);bottom:24px;display:flex;align-items:flex-end;justify-content:center"><x-import component-from-global-scope="dragon-sprite" from="./dragon-sprite.js" name="read" size="{{ 300 }}" fps="{{ 7 }}" hint-size="289px,300px"></x-import></div>
 </sc-if>
-<sc-if value="{{ mob }}" hint-placeholder-val="{{ false }}"><img src="assets/hero-books-mobile.png" alt="" style="position:absolute;right:0;top:150px;height:270px;width:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 28%);mask-image:linear-gradient(90deg,transparent 0,#000 28%)"></sc-if>
 <div style="position:relative;max-width:1200px;margin:0 auto;padding:{{ H.heroPad }}">
 <div class="pd-eyebrow" style="font-size:12px">Медицинские материалы для студентов</div>
 <h1 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(34px,5vw,56px);line-height:1.04;letter-spacing:-0.01em;color:var(--ink-900);margin:14px 0 16px">Разбирай медицину<br>по частям.<br><span style="color:var(--red-800)">Понимай целиком.</span></h1>
@@ -907,7 +906,6 @@ a:hover{color:var(--forest-700)}
 <h1 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(36px,5vw,52px);line-height:1.06;letter-spacing:-0.01em;color:var(--ink-900);margin:0">О проекте</h1>
 <p style="margin:0;font-size:clamp(16px,1.8vw,19px);line-height:1.55;color:var(--ink-500);max-width:760px;text-wrap:pretty">Парциальный Дракоша — учебные темы для студентов-медиков. Каждая тема собрана из лекций кафедры и нескольких учебников, чтобы к занятию можно было готовиться по одной странице.</p>
 </div>
-<img src="assets/hero-books.png" alt="Стопка учебников, стетоскоп и кружка «Знания лечат.»" style="width:100%;aspect-ratio:21/8;object-fit:cover;object-position:right center;border-radius:12px;border:1px solid var(--border)">
 <div style="display:flex;gap:20px;align-items:flex-start;padding:clamp(18px,3vw,26px);background:var(--panel);border-radius:12px"><x-import component-from-global-scope="DesignSystem_9e2408.Icon" name="target" size="{{ 40 }}" color="var(--forest-900)" stroke-width="{{ 1.5 }}" hint-size="40px,40px"></x-import><div style="display:flex;flex-direction:column;gap:6px"><div style="font-family:var(--font-serif);font-weight:700;font-size:20px;color:var(--ink-900)">Наша миссия</div><div style="font-size:15.5px;line-height:1.6;color:var(--ink-500)">Одна страница вместо пяти книг: всё, что давали на лекции, плюс то, чем учебники её дополняют, — в полной и краткой версии.</div></div></div>
 <div style="display:flex;flex-direction:column;gap:18px">
 <h2 style="font-family:var(--font-serif);font-weight:700;font-size:clamp(22px,2.6vw,26px);color:var(--ink-900);margin:0">Что мы предлагаем</h2>
@@ -1520,7 +1518,7 @@ class Component extends DCLogic {
     const ci = Math.max(0, Math.min(5, st.course)), sems = [ci * 2 + 1, ci * 2 + 2], semN = sems[st.sem] || sems[0];
     const actBy = new Map(D.SUBJECTS.map((x) => [x.name, x]));
     V.H = {
-      heroH: desk ? '500px' : '440px', heroPad: desk ? '40px 32px 0' : '24px 16px 22px', leadW: desk ? '520px' : '205px',
+      heroH: desk ? '500px' : '0', heroPad: desk ? '40px 32px 0' : '24px 16px 22px', leadW: desk ? '520px' : 'none',
       btnDir: desk ? 'row' : 'column', btnW: desk ? 'auto' : '230px',
       bodyPad: desk ? '28px 32px 64px' : '14px 16px 32px', gap: desk ? '36px' : '14px', cardPad: desk ? '20px' : '14px',
       subSize: desk ? 'md' : 'sm', newsSize: desk ? 'lg' : 'sm', newsSub: desk ? 'Новые темы, функции и изменения на сайте.' : '',
@@ -1549,7 +1547,10 @@ class Component extends DCLogic {
     Object.assign(V, { feed, feedDays: days, feedCount: topicsWord(D.SUBJECTS.reduce((a, x) => a + x.topics.length, 0)) + ' в четырёх предметах' });
 
     const pr = st.prog, PV = pr && (pr.v === 'short' ? T0.short : T0.full);
-    V.cont = pr ? { show: true, title: T0.title, meta: tsub.name + ' · ' + (pr.v === 'short' ? 'краткая версия' : 'полная версия'), secLabel: 'Раздел ' + (pr.sec + 1) + ' из ' + PV.sections.length + ' · ' + PV.sections[Math.min(pr.sec, PV.sections.length - 1)].title, pct: pr.pct, pctLabel: pr.pct + '%', go: () => this.go('topic', { v: pr.v, sec: pr.sec }) } : { show: false };
+    const prA = pr && pr.href && pr.title ? pr : null; // тема из движка /a/: название и адрес пишет сам движок
+    V.cont = prA ? { show: true, title: prA.title, meta: (prA.v === 'short' ? 'краткая версия' : prA.v === 'medium' ? 'средняя версия' : 'полная версия'), secLabel: (prA.nsec ? 'Раздел ' + (prA.sec + 1) + ' из ' + prA.nsec + ' · ' : '') + (prA.secTitle || ''), pct: prA.pct, pctLabel: prA.pct + '%', go: () => { location.href = prA.href; } }
+    : pr && pr.topic ? { show: false } // прогресс из движка /a/ без названия (записан до правки): лучше скрыть, чем показать чужую тему
+    : pr ? { show: true, title: T0.title, meta: tsub.name + ' · ' + (pr.v === 'short' ? 'краткая версия' : 'полная версия'), secLabel: 'Раздел ' + (pr.sec + 1) + ' из ' + PV.sections.length + ' · ' + PV.sections[Math.min(pr.sec, PV.sections.length - 1)].title, pct: pr.pct, pctLabel: pr.pct + '%', go: () => this.go('topic', { v: pr.v, sec: pr.sec }) } : { show: false };
 
     // subject
     const SB = subjOf(r.sub) || tsub;

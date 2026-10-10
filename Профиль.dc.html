@@ -23,6 +23,7 @@
 <div style="position:relative;display:flex"><x-import component-from-global-scope="DesignSystem_9e2408.Avatar" initials="АС" size="{{ 38 }}" hint-size="38px,38px"></x-import></div>
 </header>
 
+<sc-if value="{{ mob }}" hint-placeholder-val="{{ false }}"><div style="padding:14px 16px 0"><a href="index.html" style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:15px;font-weight:600;color:var(--ink-900);text-decoration:none">&larr; На главную</a></div></sc-if>
 <div style="max-width:1240px;margin:0 auto;padding:clamp(16px,3vw,28px) clamp(16px,3vw,32px) 64px;display:grid;grid-template-columns:{{ cols }};gap:28px;align-items:start">
 <sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}">
 <aside style="position:sticky;top:88px;display:flex;flex-direction:column;gap:2px">
@@ -159,7 +160,7 @@ class Component extends DCLogic {
     const feed = feedAll[st.tab];
     const DONE = { phys: 9, derm: 1, gyn: 0, surg: 1 };
     return {
-      desk, cols: desk ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', pair: desk ? 'minmax(0,1.3fr) minmax(0,1fr)' : 'minmax(0,1fr)', logoSize: desk ? 'md' : 'sm', logoTheme: st.set.look === 'dark' ? 'dark' : 'light',
+      desk, mob: !desk, cols: desk ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', pair: desk ? 'minmax(0,1.3fr) minmax(0,1fr)' : 'minmax(0,1fr)', logoSize: desk ? 'md' : 'sm', logoTheme: st.set.look === 'dark' ? 'dark' : 'light',
       side: [['user', 'Мой профиль', '#', true], ['book-open', 'Мои курсы', 'Дракоша.dc.html?screen=disc&nosplash=1'], ['bookmark', 'Сохранённое', 'Дракоша.dc.html?screen=saved&nosplash=1'], ['clipboard-list', 'Мои тесты', 'Дракоша.dc.html?screen=test&nosplash=1'], ['star', 'Достижения', 'Достижения.dc.html'], ['chart-column', 'Статистика', '#'], ['settings', 'Настройки', 'Дракоша.dc.html?screen=settings&nosplash=1'], ['heart', 'Поддержать проект', 'Поддержать.dc.html']].map(([icon, label, href, act]) => ({ icon, label, href, bg: act ? 'var(--sage-100)' : 'transparent', bar: act ? 'var(--forest-900)' : 'transparent', fw: act ? 600 : 400, go: href === '#' ? (e) => e.preventDefault() : undefined })),
       lvl, lvlName: M ? M.nameOf(lvl) : NAMES[Math.min(lvl, NAMES.length) - 1], xpPct: Math.round(((xp - from) / (to - from)) * 100), xpLabel: xp + ' XP', xpNext: 'До уровня ' + (lvl + 1) + ': ' + (to - xp) + ' XP',
       subline: 'Студент · ' + (st.course + 1) + ' курс · ' + (st.P.fac || 'Лечебное дело'),
