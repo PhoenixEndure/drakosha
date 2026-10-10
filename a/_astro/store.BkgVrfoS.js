@@ -1,0 +1,1 @@
+function e(e,t){try{let n=localStorage.getItem(e);return n==null?t:JSON.parse(n)}catch{return t}}function t(e,t){try{localStorage.setItem(e,JSON.stringify(t))}catch{}}function n(){let e=document.querySelector(`.topic`),t=e?.dataset.version;return{topic:e?.dataset.topic??``,version:t===`short`?`short`:t===`medium`?`medium`:`full`}}export{n,t as r,e as t};
